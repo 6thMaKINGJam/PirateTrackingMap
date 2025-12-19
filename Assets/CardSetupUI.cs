@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class CardSetupUI : MonoBehaviour
 {
     [Header("Card UI")]
     public Button[] cardButtons;      // Card0~Card3의 Button
-    public Image[] cardImages;        // Card0~Card3의 Image (선택 강조용)
+    public Image[] cardImages;        // Card0~Card3의 Image
     public TMP_Text[] countTexts;     // 각 카드의 장수 텍스트
 
     [Header("Control Buttons")]
@@ -16,15 +15,17 @@ public class CardSetupUI : MonoBehaviour
     public Button startButton;
 
     [Header("Start Button Visual")]
-    public CanvasGroup startButtonCanvasGroup; // 흐릿하게 만들기용 (없으면 추가)
+    public CanvasGroup startButtonCanvasGroup;
 
-    private int[] counts = new int[4];
-    private int selectedIndex = 0;
+    private const int CARD_COUNT = 4;
     private const int TOTAL_LIMIT = 10;
+
+    private int[] counts = new int[CARD_COUNT];
+    private int selectedIndex = 0;
 
     void Start()
     {
-        // 카드 버튼 클릭 연결
+        // 카드 선택 버튼 연결
         for (int i = 0; i < cardButtons.Length; i++)
         {
             int idx = i; // 클로저 방지
@@ -33,9 +34,8 @@ public class CardSetupUI : MonoBehaviour
 
         plusButton.onClick.AddListener(IncreaseSelected);
         minusButton.onClick.AddListener(DecreaseSelected);
-        startButton.onClick.AddListener(GoNextScene);
+        startButton.onClick.AddListener(ConfirmCardSelection);
 
-        // 초기 표시
         SelectCard(0);
         RefreshUI();
     }
@@ -44,16 +44,19 @@ public class CardSetupUI : MonoBehaviour
     {
         selectedIndex = idx;
 
-        // 선택 강조 (테두리 느낌: 색 바꾸기)
+        // 선택된 카드 강조
         for (int i = 0; i < cardImages.Length; i++)
         {
-            cardImages[i].color = (i == selectedIndex) ? new Color(1f, 1f, 1f, 1f) : new Color(0.85f, 0.85f, 0.85f, 1f);
+            cardImages[i].color =
+                (i == selectedIndex)
+                ? new Color(1f, 1f, 1f, 1f)
+                : new Color(0.85f, 0.85f, 0.85f, 1f);
         }
     }
 
     void IncreaseSelected()
     {
-        if (GetTotal() >= TOTAL_LIMIT) return; // 합 10 넘기면 막기
+        if (GetTotal() >= TOTAL_LIMIT) return;
         counts[selectedIndex]++;
         RefreshUI();
     }
@@ -68,7 +71,8 @@ public class CardSetupUI : MonoBehaviour
     int GetTotal()
     {
         int sum = 0;
-        for (int i = 0; i < counts.Length; i++) sum += counts[i];
+        for (int i = 0; i < counts.Length; i++)
+            sum += counts[i];
         return sum;
     }
 
@@ -81,20 +85,25 @@ public class CardSetupUI : MonoBehaviour
         startButton.interactable = canStart;
 
         if (startButtonCanvasGroup != null)
-        {
-            startButtonCanvasGroup.alpha = canStart ? 1.0f : 0.4f; // 흐릿→선명
-            startButtonCanvasGroup.blocksRaycasts = true; // 버튼 자체 클릭판정은 interactable이 막음
-        }
+            startButtonCanvasGroup.alpha = canStart ? 1.0f : 0.4f;
     }
 
-    void GoNextScene()
+    // =========================
+    // 외부(다음 씬)에서 쓰는 핵심 함수
+    // =========================
+    public void ConfirmCardSelection()
     {
         if (GetTotal() != TOTAL_LIMIT) return;
 
-        // 다음 씬에서 쓰도록 저장
-        for (int i = 0; i < 4; i++)
-            GameSettings.cardCounts[i] = counts[i];
+        GameSettings.SetInitialCardCounts(counts);
+        // 씬 전환은 GameScene 담당자가 처리
+    }
 
-        SceneManager.LoadScene("GameScene"); // Build Settings에 등록된 씬 이름과 같아야 함
+    // (선택) 테스트 / 디버그용
+    public int[] GetSelectedCardCounts()
+    {
+        int[] copy = new int[counts.Length];
+        counts.CopyTo(copy, 0);
+        return copy;
     }
 }
