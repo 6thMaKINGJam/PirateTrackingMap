@@ -7,7 +7,9 @@ public class StartSceneUI : MonoBehaviour
 {   
     public void OnStartButtonClicked()
     {
-        SceneManager.LoadScene("CardSelectScene");
+        //SceneManager.LoadScene("CardSelectScene");
+
+        SceneManager.LoadScene("StoryCutscene");
     }
     
 }
