@@ -258,7 +258,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7506092617240695304}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4414506615192347147, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: UseCardRunningMan
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &500045821087565762
 MonoBehaviour:
   m_ObjectHideFlags: 0
