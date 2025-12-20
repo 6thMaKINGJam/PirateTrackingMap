@@ -487,7 +487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1760b534e8f7ca4488883b6451532b00, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -663,8 +663,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 55
+  m_fontSizeBase: 55
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 48.646484, y: 0, z: 183.3421, w: -154.30353}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -720,16 +720,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 929308228}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.061048605, w: 0.99813485}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 571305988}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.564, y: 237}
+  m_AnchoredPosition: {x: 46, y: 119}
   m_SizeDelta: {x: 1803.1282, y: 569.4148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &929308232
@@ -748,19 +748,19 @@ MonoBehaviour:
   messages:
   - "\uBC14\uB098\uB098\uC218\uC5FC \uB300\uC120\uC7A5 \uACBD \uBABD\uD0A4\uBC14\uB974\uB3C4
     3\uC138\uAC00 \uB0A8\uAE34 \uC720\uC5B8\uC744 \uAC00\uC9C0\uACE0 \uB098\uB098\uB294
-    \uC5EC\uD589\uC744 \uB5A0\uB09C\uB2E4. "
+    \uC5EC\uD589\uC744 \uB5A0\uB09C\uB2E4. \n"
   - "\"\uC6B0\uB07C\uB07C\uB07C\uB07C\uB07C \uC6B0\uB07C\uB07C\uB07C \uC6B0\uB07C.
     \uC6B0\uB07C\uB07C\uB07C\uB07C.\u201D\n (\uB098 \uBABD\uD0A4\uBC14\uB974\uB3C4\uB294
     \uC774 \uBC14\uB2E4 \uC5B4\uB518\uAC00\uC5D0 \uC5C4\uCCAD\uB09C \uBCF4\uBB3C\uC744
     \uC228\uACA8\uB450\uC5C8\uB2E4. \uCC3E\uB294 \uC790\uB294 \uADF8 \uBCF4\uBB3C\uC758
-    \uD589\uBCF5\uC744 \uB9CC\uB07D\uD574\uB3C4 \uC88B\uB2E4.) "
+    \uD589\uBCF5\uC744 \uB9CC\uB07D\uD574\uB3C4 \uC88B\uB2E4.)\n"
   - "\u201C\uC6B0\uAE4C\uB07C \uC6B0\uAE4C. \uC6B0\uB07C\uB07C\uB07C\uB07C \uC6B0\uB07C\uB07C.\u201D
     \n(\uB098\uB97C \uCC3E\uB294\uB2E4\uB294 \uAC83\uC740  \uC5EC\uB7FF\uC744 \uD55C
     \uBC88\uC5D0 \uBC1C\uACAC\uD558\uB294 \uC77C\uC774\uBA70,  \uB098\uB97C \uBC97\uAE34\uB2E4\uB294
     \uAC83\uC740  \uD669\uAE08\uBE5B\uC744 \uB4DC\uB7EC\uB0B4\uB294 \uC77C\uC774\uB2E4.
     \uC801\uB2F9\uD788 \uCDE8\uD558\uBA74 \uBCF4\uC0C1\uC774 \uB418\uC9C0\uB9CC, 
     \uD0D0\uC695\uC774 \uC9C0\uB098\uCE58\uBA74 \uB3C5\uC774 \uB418\uACE0,  \uB193\uCCD0\uBC84\uB9AC\uBA74
-    \uBC1C\uBC11\uC758 \uD568\uC815\uC774 \uB41C\uB2E4. )"
+    \uBC1C\uBC11\uC758 \uD568\uC815\uC774 \uB41C\uB2E4. \n"
   - "\u201C\uC6B0\uB07C\uB07D \uC6B0\uB07C\uC6B0\uB07C. \uC6B0\uB07C\uB07C.\u201D\r\n(\uBA40\uB9AC
     \uB0B4\uB2E4\uBCFC \uC218\uC788\uB294 \uB80C\uC988\uC640 \uBC18\uC9DD\uAC70\uB9AC\uB294
     \uAC83\uC744 \uCC3E\uC544\uC8FC\uB294 \uB3C4\uAD6C\uB9CC\uC774 \uB0B4 \uBCF4\uBB3C\uC758
@@ -884,7 +884,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: -412}
+  m_AnchoredPosition: {x: -626, y: -412}
   m_SizeDelta: {x: 330.4279, y: 101.2062}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1196146582
