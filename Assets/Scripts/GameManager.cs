@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     private GridState[,] grid = new GridState[GRID_WIDTH, GRID_HEIGHT];
 
     public ObjectSetter objectSetter;
+    private DirectionSelector _directionSelector;
     public CardSetupUI cardSetupUI;
 
     // ===== 이동 시스템 연결 =====
@@ -61,6 +62,13 @@ public class GameManager : MonoBehaviour
         
         // NumberDisplay 자동 찾기
         _numberDisplay = gridManager?.GetComponent<NumberDisplay>();
+        
+        // DirectionSelector 자동 찾기
+        _directionSelector = FindObjectOfType<DirectionSelector>();
+        if (_directionSelector == null)
+        {
+            Debug.LogWarning("DirectionSelector를 찾을 수 없습니다!");
+        }
     }
 
     private void Start()
@@ -304,8 +312,75 @@ public class GameManager : MonoBehaviour
     }
     
     
+    // 방향선택구현완료시 
+    // ===== 테스트용 UI 버튼 카드 사용 함수들 =====
+
+    /*/// <summary>
+    /// 러닝맨 카드 사용 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardRunningMan()
+    {
+        Debug.Log("러닝맨 카드 사용!");
+        playerController.UseCard(new CardRunningMan());
+    }
+
+    /// <summary>
+    /// 유턴 카드 사용 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardUTurn()
+    {
+        Debug.Log("유턴 카드 사용!");
+        playerController.UseCard(new CardUTurn());
+    }
+
+    /// <summary>
+    /// 바닷게 카드 사용 (UI 버튼에서 호출)
+    /// 방향 선택 UI 표시
+    /// </summary>
+    public void UseCardCrab()
+    {
+        if (_directionSelector == null)
+        {
+            Debug.LogError("DirectionSelector가 없습니다!");
+            return;
+        }
     
-     // ===== 테스트용 UI 버튼 카드 사용 함수들 =====
+        Debug.Log("바닷게 카드 선택 - 왼쪽/오른쪽을 선택하세요");
+    
+        _directionSelector.ShowLeftRightChoice((isLeft) => 
+        {
+            Debug.Log($"바닷게 카드 사용 ({(isLeft ? "왼쪽" : "오른쪽")})");
+            CardCrab card = new CardCrab();
+            card.SetChoice(isLeft);
+            playerController.UseCard(card);
+        });
+    }
+
+    /// <summary>
+    /// 앵커 카드 사용 (UI 버튼에서 호출)
+    /// 방향 선택 UI 표시
+    /// </summary>
+    public void UseCardAnchor()
+    {
+        if (_directionSelector == null)
+        {
+            Debug.LogError("DirectionSelector가 없습니다!");
+            return;
+        }
+
+        Debug.Log("앵커 카드 선택 - 방향을 선택하세요");
+
+        _directionSelector.ShowDirectionChoice((direction) =>
+        {
+            Debug.Log($"앵커 카드 사용 ({direction})");
+            CardAnchor card = new CardAnchor();
+            card.SetChoice(direction);
+            playerController.UseCard(card);
+        });
+    }*/
+    
+    
+    // ===== 테스트용 UI 버튼 카드 사용 함수들 =====
 
     /// <summary>
     /// 러닝맨 카드 사용 (UI 버튼에서 호출)
