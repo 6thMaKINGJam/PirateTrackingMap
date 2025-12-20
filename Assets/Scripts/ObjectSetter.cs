@@ -13,9 +13,11 @@ public class ObjectSetter : MonoBehaviour
     
     public GameObject treasurePref;
     public GameObject monsterPref;
+    public GameObject playerPref;
     
     public GameObject treasure;
     public List<GameObject> monsters;
+    public GameObject player;
     
     private RectTransform canvasRT;
 
@@ -26,32 +28,17 @@ public class ObjectSetter : MonoBehaviour
 
     private void InstantiateObjects()
     {
-        int index = 0;
-        
         // 보물, 몬스터 오브젝트 생성
         if (treasurePref != null && treasure == null)
         {
-            index = GameManager.Instance.treasurePosition.y * 16 + GameManager.Instance.treasurePosition.x;
-            
             treasure = Instantiate(treasurePref, gameObject.transform);
-            RectTransform gridCell = gridLayoutGroup.transform.GetChild(index) as RectTransform;
-            
-            treasure.GetComponent<RectTransform>().position = gridCell.position;
-            
-            //treasure.SetActive(false);
         }
 
         if (monsterPref != null && monsters.Count == 0)
         {
             for (int i = 0; i < GameManager.Instance.monsterCount; i++)
             {
-                index = GameManager.Instance.monsterPositions[i].y * 16 + GameManager.Instance.monsterPositions[i].x;
-                
                 GameObject mon = Instantiate(monsterPref, gameObject.transform);
-                RectTransform gridCell = gridLayoutGroup.transform.GetChild(index) as RectTransform;
-                mon.GetComponent<RectTransform>().position = gridCell.position;
-                
-                //mon.SetActive(false);
                 monsters.Add(mon);
             }  
         }
@@ -68,7 +55,10 @@ public class ObjectSetter : MonoBehaviour
             InstantiateObjects();
         }
         
-        /*SetPosition(treasure, treasurePos);
+        SetPosition(player, GameManager.Instance.playerPosition);
+        player.SetActive(true);
+        
+        SetPosition(treasure, treasurePos);
         treasure.SetActive(true);
 
         for (int i = 0; i < monsterPos.Count; i++)
@@ -78,15 +68,15 @@ public class ObjectSetter : MonoBehaviour
                 SetPosition(monsters[i], monsterPos[i]);
                 monsters[i].SetActive(true);
             }
-        }*/
+        }
     }
     
     private void SetPosition(GameObject go, Vector2Int pos)
     {
-        int posIndexX = pos.x - 8;
-        int posIndexY = pos.y - 8;
-        
-        go.GetComponent<RectTransform>().anchoredPosition = new Vector2(posIndexX * GameManager.CELL_SIZE, posIndexY * GameManager.CELL_SIZE);
+        int index = pos.y * 16 + pos.x;
+        RectTransform gridCell = gridLayoutGroup.transform.GetChild(index) as RectTransform;
+            
+        go.GetComponent<RectTransform>().position = gridCell.position;
     }
 
     /// <summary>

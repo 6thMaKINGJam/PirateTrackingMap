@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 플레이어의 이동을 담당하는 클래스
@@ -35,11 +37,17 @@ public class PlayerController : MonoBehaviour
     // 애니메이션
     private Animator _animator;
     private PlayerPathSpot _playerPath;
+    
+    [SerializeField] private GridLayoutGroup gridLayoutGroup;
+    private RectTransform canvasRT;
+    private RectTransform playerRT;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _playerPath = GetComponent<PlayerPathSpot>();
+        canvasRT = GetComponentInParent<Canvas>().gameObject.GetComponent<RectTransform>();
+        playerRT = GetComponent<RectTransform>();
     }
 
     // ===== 공개 메서드 =====
@@ -52,7 +60,9 @@ public class PlayerController : MonoBehaviour
     public void SetStartPosition(Vector2Int startPos)
     {
         _currentGridPosition = startPos;
-        transform.position = GridToWorldPosition(startPos);
+        Debug.Log(_facingDirection);
+        /*playerRT.position = GridToWorldPosition(startPos);
+        Debug.Log(playerRT.position);*/
 
         // 시작 위치도 방문으로 처리
         OnCellVisited?.Invoke(startPos);
@@ -98,7 +108,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // 최종 방향 미리 계산
+        Debug.Log(_currentGridPosition);
+        Debug.Log(_facingDirection);
         Direction finalDir = card.GetFinalDirection(_facingDirection);
+        Debug.Log(finalDir);
 
         // 이동 코루틴 시작
         StartCoroutine(ExecuteMovementSequence(finalDir));
@@ -128,12 +141,12 @@ public class PlayerController : MonoBehaviour
                 break;
             
             case Direction.Right:
-                GetComponent<SpriteRenderer>().flipX = false;
+                //GetComponent<SpriteRenderer>().flipX = false;
                 _animator.SetBool("Right", true);
                 break;
             
             case Direction.Left:
-                GetComponent<SpriteRenderer>().flipX = true;
+                //GetComponent<SpriteRenderer>().flipX = true;
                 _animator.SetBool("Right", true);
                 break;
         }
@@ -202,7 +215,7 @@ public class PlayerController : MonoBehaviour
         switch (dir)
         {
             case Direction.Up:
-                return current + Vector2Int.up;    // (x, y+1)
+                return current - Vector2Int.up;    // (x, y+1)
             case Direction.Down:
                 return current + Vector2Int.down;  // (x, y-1)
             case Direction.Left:
@@ -230,10 +243,10 @@ public class PlayerController : MonoBehaviour
     /// <param name="targetGridPos">목표 그리드 좌표</param>
     private IEnumerator MoveToPosition(Vector2Int targetGridPos)
     {
-        Vector3 startPos = transform.position;
+        Vector3 startPos = playerRT.position;
         Vector3 endPos = GridToWorldPosition(targetGridPos);
         
-        _playerPath.MakePath(startPos);
+        //_playerPath.MakePath(startPos);
 
         float elapsed = 0f;
         float duration = 1f / moveSpeed; // 예: 5칸/초 → 0.2초/칸
@@ -260,8 +273,13 @@ public class PlayerController : MonoBehaviour
     /// <returns>월드 좌표</returns>
     private Vector3 GridToWorldPosition(Vector2Int gridPos)
     {
+        int index = gridPos.y * 16 + gridPos.x;
+        RectTransform gridCell = gridLayoutGroup.transform.GetChild(index) as RectTransform;
+
+        return gridCell.position;
+        
         // 1칸 = 1 Unity unit으로 가정
-        return new Vector3(gridPos.x, gridPos.y, 0);
+        //return new Vector3(gridPos.x, gridPos.y, 0);
     }
 
     /// <summary>
