@@ -4,24 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-<<<<<<< Updated upstream
-  - enabled: 1
-    path: Assets/Scenes/Main.unity
-=======
-<<<<<<< HEAD
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-=======
-  - enabled: 1
-    path: Assets/Scenes/Main.unity
->>>>>>> 658bd0b119ad5cb9c9ef3e1ada08f9df92cca5a9
->>>>>>> Stashed changes
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/StartScene.unity
-    guid: befd1fadf886c1a4c919250d358cb260
-  - enabled: 1
-    path: Assets/Scenes/CardSelectScene.unity
-    guid: 637dc15340ec89e458f6529f5fc95813
+  m_Scenes: []
   m_configObjects: {}
