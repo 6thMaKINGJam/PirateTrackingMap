@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public List<Vector2Int> monsterPositions = new List<Vector2Int>();
 
     // 그리드 상태 
-    private GridState[,] grid = new GridState[GRID_WIDTH, GRID_HEIGHT];
+    public GridState[,] grid = new GridState[GRID_WIDTH, GRID_HEIGHT];
 
     public ObjectSetter objectSetter;
     private DirectionSelector _directionSelector;
@@ -382,13 +382,26 @@ public class GameManager : MonoBehaviour
     
     // ===== 테스트용 UI 버튼 카드 사용 함수들 =====
 
+    private bool CanUseCard(int index)
+    {
+        if (Instance.cardSetupUI.SelectCounts[index] > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
     /// <summary>
     /// 러닝맨 카드 사용 (UI 버튼에서 호출)
     /// </summary>
     public void UseCardRunningMan()
     {
-        Debug.Log("러닝맨 카드 사용!");
-        Instance.playerController.UseCard(new CardRunningMan());
+        if (CanUseCard(0))
+        {
+            Debug.Log("러닝맨 카드 사용!");
+            Instance.playerController.UseCard(new CardRunningMan());
+            Instance.cardSetupUI.SelectCounts[0]--;
+        }
     }
 
     /// <summary>
@@ -396,8 +409,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void UseCardUTurn()
     {
-        Debug.Log("유턴 카드 사용!");
-        Instance.playerController.UseCard(new CardUTurn());
+        if (CanUseCard(1))
+        {
+            Debug.Log("유턴 카드 사용!");
+            Instance.playerController.UseCard(new CardUTurn());
+            Instance.cardSetupUI.SelectCounts[1]--;      
+        }
     }
 
     /// <summary>
@@ -405,10 +422,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void UseCardCrabLeft()
     {
-        Debug.Log("바닷게 카드 사용 (왼쪽)");
-        CardCrab card = new CardCrab();
-        card.SetChoice(true); // 왼쪽
-        Instance.playerController.UseCard(card);
+        if (CanUseCard(2))
+        {
+            Debug.Log("바닷게 카드 사용 (왼쪽)");
+            CardCrab card = new CardCrab();
+            card.SetChoice(true); // 왼쪽
+            Instance.playerController.UseCard(card);
+            Instance.cardSetupUI.SelectCounts[2]--;
+        }
     }
 
     /// <summary>
@@ -420,6 +441,7 @@ public class GameManager : MonoBehaviour
         CardCrab card = new CardCrab();
         card.SetChoice(false); // 오른쪽
         Instance.playerController.UseCard(card);
+        Instance.cardSetupUI.SelectCounts[2]--;
     }
 
     /// <summary>
@@ -431,6 +453,7 @@ public class GameManager : MonoBehaviour
         CardAnchor card = new CardAnchor();
         card.SetChoice(Direction.Up);
         Instance.playerController.UseCard(card);
+        Instance.cardSetupUI.SelectCounts[3]--;
     }
 
     /// <summary>
@@ -438,10 +461,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void UseCardAnchorRight()
     {
-        Debug.Log("앵커 카드 사용 (오른쪽)");
-        CardAnchor card = new CardAnchor();
-        card.SetChoice(Direction.Right);
-        Instance.playerController.UseCard(card);
+        if (CanUseCard(3))
+        {
+            Debug.Log("앵커 카드 사용 (오른쪽)");
+            CardAnchor card = new CardAnchor();
+            card.SetChoice(Direction.Right);
+            Instance.playerController.UseCard(card);
+            Instance.cardSetupUI.SelectCounts[3]--;
+        }
     }
 
     /// <summary>
@@ -453,6 +480,7 @@ public class GameManager : MonoBehaviour
         CardAnchor card = new CardAnchor();
         card.SetChoice(Direction.Down);
         Instance.playerController.UseCard(card);
+        Instance.cardSetupUI.SelectCounts[3]--;
     }
 
     /// <summary>
@@ -464,5 +492,6 @@ public class GameManager : MonoBehaviour
         CardAnchor card = new CardAnchor();
         card.SetChoice(Direction.Left);
         Instance.playerController.UseCard(card);
+        Instance.cardSetupUI.SelectCounts[3]--;
     }
 }

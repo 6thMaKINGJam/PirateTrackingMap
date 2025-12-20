@@ -180,6 +180,36 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Out of bounds!");
                 continue; // 이동 스킵
             }
+
+            // 보물 있는지
+            
+            // 몬스터가 있는지
+            if (GameManager.Instance.grid[nextPos.x, nextPos.y] == GridState.몬스터)
+            {
+                int index = 0;
+                
+                // 몬스터 만난 경우
+                for (int i = 0; i < GameManager.Instance.monsterPositions.Count; i++)
+                {
+                    if (GameManager.Instance.monsterPositions[i] == nextPos)
+                    {
+                        index = i;
+                    }
+                }
+
+                Monster mon = GameManager.Instance.objectSetter.monsters[index].GetComponent<Monster>();
+                GameManager.Instance.grid[nextPos.x, nextPos.y] = GridState.None;
+                
+                if (mon != null)
+                {
+                    mon.FaceMonster();
+                }
+
+                finalDirection = absoluteDir;
+                _movementQueue.Clear();
+                
+                break;
+            }
             
             // 이동 애니메이션 실행 (끝날 때까지 대기)
             yield return StartCoroutine(MoveToPosition(nextPos));
