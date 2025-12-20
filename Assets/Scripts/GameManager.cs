@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
     {
         // 플레이어 체력 초기화
         playerHealth = 3;
-        playerPosition = new Vector2Int(5, 5);
+        playerPosition = new Vector2Int(0, 15);
         
         // 그리드 초기화
         for (int x = 0; x < GRID_WIDTH; x++)
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
             grid[monsterPos.x, monsterPos.y] = GridState.몬스터;
         }
         
-        // 보물, 몬스터 오브젝트 위치 배치
+        // 플레이어, 보물, 몬스터 오브젝트 위치 배치
         objectSetter.SpawnObjects(treasurePosition, monsterPositions);
         
         // ===== 이동 시스템 초기화 =====
@@ -307,7 +307,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NewTurn()
     {
-        cardSetupUI.ItemSelectUI.SetActive(true);
+        //cardSetupUI.ItemSelectUI.SetActive(true);
         
     }
     
@@ -388,7 +388,7 @@ public class GameManager : MonoBehaviour
     public void UseCardRunningMan()
     {
         Debug.Log("러닝맨 카드 사용!");
-        playerController.UseCard(new CardRunningMan());
+        Instance.playerController.UseCard(new CardRunningMan());
     }
 
     /// <summary>
@@ -397,7 +397,7 @@ public class GameManager : MonoBehaviour
     public void UseCardUTurn()
     {
         Debug.Log("유턴 카드 사용!");
-        playerController.UseCard(new CardUTurn());
+        Instance.playerController.UseCard(new CardUTurn());
     }
 
     /// <summary>
@@ -408,7 +408,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("바닷게 카드 사용 (왼쪽)");
         CardCrab card = new CardCrab();
         card.SetChoice(true); // 왼쪽
-        playerController.UseCard(card);
+        Instance.playerController.UseCard(card);
     }
 
     /// <summary>
@@ -419,7 +419,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("바닷게 카드 사용 (오른쪽)");
         CardCrab card = new CardCrab();
         card.SetChoice(false); // 오른쪽
-        playerController.UseCard(card);
+        Instance.playerController.UseCard(card);
     }
 
     /// <summary>
@@ -430,7 +430,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("앵커 카드 사용 (위)");
         CardAnchor card = new CardAnchor();
         card.SetChoice(Direction.Up);
-        playerController.UseCard(card);
+        Instance.playerController.UseCard(card);
     }
 
     /// <summary>
@@ -441,7 +441,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("앵커 카드 사용 (오른쪽)");
         CardAnchor card = new CardAnchor();
         card.SetChoice(Direction.Right);
-        playerController.UseCard(card);
+        Instance.playerController.UseCard(card);
     }
 
     /// <summary>
@@ -452,7 +452,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("앵커 카드 사용 (아래)");
         CardAnchor card = new CardAnchor();
         card.SetChoice(Direction.Down);
-        playerController.UseCard(card);
+        Instance.playerController.UseCard(card);
     }
 
     /// <summary>
@@ -463,6 +463,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("앵커 카드 사용 (왼쪽)");
         CardAnchor card = new CardAnchor();
         card.SetChoice(Direction.Left);
-        playerController.UseCard(card);
+        Instance.playerController.UseCard(card);
     }
 }
