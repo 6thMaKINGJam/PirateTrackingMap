@@ -509,7 +509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &295670478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,7 +1174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &419617343
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2416,11 +2416,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Would you like to use the item? If you do not use items, you can increase
-    your attack power by +1 through training.
+  m_text: "\uC544\uC774\uD15C \uCE74\uB4DC\uB97C \uC0AC\uC6A9\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?
+    \uC544\uC774\uD15C \uCE74\uB4DC\uB97C \uC0AC\uC6A9\uD558\uC9C0 \uC54A\uC73C\uBA74
+    \uD6C8\uB828\uC744 \uD1B5\uD574 \uACF5\uACA9\uB825\uC744 +1 \uC99D\uAC00\uC2DC\uD0AC
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4. "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e35d833616291694f8ae87f5b9d1b55f, type: 2}
+  m_sharedMaterial: {fileID: -1072847797796622690, guid: e35d833616291694f8ae87f5b9d1b55f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4048,7 +4050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &926934773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8211,7 +8213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1902134169
 MonoBehaviour:
   m_ObjectHideFlags: 0
