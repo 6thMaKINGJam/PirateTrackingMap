@@ -32,13 +32,22 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 몬스터 n마리 위치 리스트 (gird 기준) (ex. [{1, 2}, {4, 8}, {10, 11}]
     /// </summary>
-    public List<Vector2Int> monsterPositions = new List<Vector2Int>();
+    private List<Vector2Int> _monsterPositions = new List<Vector2Int>();
 
     // 그리드 상태 
     private GridState[,] grid = new GridState[GRID_WIDTH, GRID_HEIGHT];
 
     public ObjectSetter objectSetter;
 
+    // ===== 이동 시스템 연결 =====
+    [Header("Movement System")]
+    [SerializeField] private GridManager gridManager;
+    [SerializeField] private PlayerController playerController;
+    private NumberDisplay _numberDisplay;
+    
+    // ===== 카드 리스트 =====
+    private List<MoveCard> availableCards;
+    
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -49,7 +58,31 @@ public class GameManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
         
-        //InitializeGame();
+        // NumberDisplay 자동 찾기
+        _numberDisplay = gridManager?.GetComponent<NumberDisplay>();
+    }
+
+    private void Start()
+    {
+        // 카드 생성
+        InitializeCards();
+
+        // 게임 초기화
+        InitializeGame();
+    }
+    
+    /// <summary>
+    /// 이동 카드 초기화
+    /// </summary>
+    private void InitializeCards()
+    {
+        availableCards = new List<MoveCard>
+        {
+            new CardRunningMan(),
+            new CardUTurn(),
+            new CardCrab(),
+            new CardAnchor()
+        };
     }
 
     /// <summary>
@@ -61,6 +94,15 @@ public class GameManager : MonoBehaviour
         // 플레이어 체력 초기화
         playerHealth = 3;
         playerPosition = new Vector2Int(5, 5);
+        
+        // 그리드 초기화
+        for (int x = 0; x < GRID_WIDTH; x++)
+        {
+            for (int y = 0; y < GRID_HEIGHT; y++)
+            {
+                grid[x, y] = GridState.None;
+            }
+        }
 
         // 사용된 위치를 추적하기 위한 리스트
         List<Vector2Int> usedPositions = new List<Vector2Int>();
@@ -71,17 +113,122 @@ public class GameManager : MonoBehaviour
         grid[treasurePosition.x, treasurePosition.y] = GridState.보물;
 
         // 몬스터 3개 위치 랜덤 생성
-        monsterPositions.Clear();
+        _monsterPositions.Clear();
         for (int i = 0; i < monsterCount; i++)
         {
             Vector2Int monsterPos = GetRandomPosition(usedPositions);
-            monsterPositions.Add(monsterPos);
+            _monsterPositions.Add(monsterPos);
             usedPositions.Add(monsterPos);
             grid[monsterPos.x, monsterPos.y] = GridState.몬스터;
         }
         
         // 보물, 몬스터 오브젝트 위치 배치
-        objectSetter.SpawnObjects(treasurePosition, monsterPositions);
+        objectSetter.SpawnObjects(treasurePosition, _monsterPositions);
+        
+        // ===== 이동 시스템 초기화 =====
+        InitializeMovementSystem();
+    }
+    
+    /// <summary>
+    /// 이동 시스템 초기화
+    /// GridManager, PlayerController, NumberDisplay 연결
+    /// </summary>
+    private void InitializeMovementSystem()
+    {
+        if (gridManager == null || playerController == null)
+        {
+            Debug.LogError("GridManager 또는 PlayerController가 할당되지 않았습니다!");
+            return;
+        }
+
+        // 1. GridManager 초기화
+        gridManager.Initialize();
+
+        // 2. 보물과 몬스터 위치를 GridManager에 오브젝트로 등록
+        gridManager.SetObject(treasurePosition.x, treasurePosition.y);
+        foreach (Vector2Int monsterPos in _monsterPositions)
+        {
+            gridManager.SetObject(monsterPos.x, monsterPos.y);
+        }
+
+        // 3. NumberDisplay 초기화
+        if (_numberDisplay != null)
+        {
+            _numberDisplay.Initialize(gridManager);
+        }
+        else
+        {
+            Debug.LogWarning("NumberDisplay를 찾을 수 없습니다!");
+        }
+
+        // 4. 이벤트 연결
+        playerController.OnCellVisited += OnPlayerCellVisited;
+        playerController.OnMovementComplete += OnPlayerMovementComplete;
+
+        // 5. 플레이어 시작 위치 설정
+        playerController.SetStartPosition(playerPosition);
+
+        // 6. 초기 숫자 표시
+        if (_numberDisplay != null)
+        {
+            _numberDisplay.UpdateNumbers();
+        }
+    }
+    
+    /// <summary>
+    /// 플레이어가 칸을 밟았을 때 호출
+    /// </summary>
+    /// <param name="pos">밟은 칸의 위치</param>
+    private void OnPlayerCellVisited(Vector2Int pos)
+    {
+        // GridManager에 방문 기록
+        gridManager.MarkCellVisited(pos);
+
+        // 플레이어 위치 업데이트
+        playerPosition = pos;
+
+        // 해당 위치의 상태 확인
+        CheckCellState(pos);
+    }
+
+    /// <summary>
+    /// 플레이어 이동이 완료되었을 때 호출
+    /// </summary>
+    private void OnPlayerMovementComplete()
+    {
+        // 숫자 업데이트
+        if (_numberDisplay != null)
+        {
+            _numberDisplay.UpdateNumbers();
+        }
+    }
+
+    /// <summary>
+    /// 특정 칸의 상태 확인 및 처리
+    /// </summary>
+    /// <param name="pos">확인할 칸의 위치</param>
+    private void CheckCellState(Vector2Int pos)
+    {
+        GridState state = grid[pos.x, pos.y];
+
+        switch (state)
+        {
+            case GridState.보물:
+                Debug.Log("보물 발견! 게임 클리어!");
+                // TODO: 게임 클리어 처리
+                break;
+
+            case GridState.몬스터:
+                Debug.Log("몬스터 발견! 데미지!");
+                TakeDamage(1);
+                // 몬스터는 한 번만 데미지 주도록 상태 변경
+                grid[pos.x, pos.y] = GridState.None;
+                break;
+
+            case GridState.None:
+                // 아무것도 없음
+                break;
+        }
     }
 
     /// <summary>
@@ -144,5 +291,93 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         InitializeGame();
+    }
+    
+    
+    
+     // ===== 테스트용 UI 버튼 카드 사용 함수들 =====
+
+    /// <summary>
+    /// 러닝맨 카드 사용 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardRunningMan()
+    {
+        Debug.Log("러닝맨 카드 사용!");
+        playerController.UseCard(new CardRunningMan());
+    }
+
+    /// <summary>
+    /// 유턴 카드 사용 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardUTurn()
+    {
+        Debug.Log("유턴 카드 사용!");
+        playerController.UseCard(new CardUTurn());
+    }
+
+    /// <summary>
+    /// 바닷게 카드 사용 - 왼쪽 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardCrabLeft()
+    {
+        Debug.Log("바닷게 카드 사용 (왼쪽)");
+        CardCrab card = new CardCrab();
+        card.SetChoice(true); // 왼쪽
+        playerController.UseCard(card);
+    }
+
+    /// <summary>
+    /// 바닷게 카드 사용 - 오른쪽 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardCrabRight()
+    {
+        Debug.Log("바닷게 카드 사용 (오른쪽)");
+        CardCrab card = new CardCrab();
+        card.SetChoice(false); // 오른쪽
+        playerController.UseCard(card);
+    }
+
+    /// <summary>
+    /// 앵커 카드 사용 - 위 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardAnchorUp()
+    {
+        Debug.Log("앵커 카드 사용 (위)");
+        CardAnchor card = new CardAnchor();
+        card.SetChoice(Direction.Up);
+        playerController.UseCard(card);
+    }
+
+    /// <summary>
+    /// 앵커 카드 사용 - 오른쪽 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardAnchorRight()
+    {
+        Debug.Log("앵커 카드 사용 (오른쪽)");
+        CardAnchor card = new CardAnchor();
+        card.SetChoice(Direction.Right);
+        playerController.UseCard(card);
+    }
+
+    /// <summary>
+    /// 앵커 카드 사용 - 아래 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardAnchorDown()
+    {
+        Debug.Log("앵커 카드 사용 (아래)");
+        CardAnchor card = new CardAnchor();
+        card.SetChoice(Direction.Down);
+        playerController.UseCard(card);
+    }
+
+    /// <summary>
+    /// 앵커 카드 사용 - 왼쪽 (UI 버튼에서 호출)
+    /// </summary>
+    public void UseCardAnchorLeft()
+    {
+        Debug.Log("앵커 카드 사용 (왼쪽)");
+        CardAnchor card = new CardAnchor();
+        card.SetChoice(Direction.Left);
+        playerController.UseCard(card);
     }
 }
