@@ -4,7 +4,7 @@ public static class GameSettings
 {
     public const int CARD_TYPE_COUNT = 4;
     private static int[] cardCounts = new int[CARD_TYPE_COUNT];
-
+    public static bool isSet = false;
     public static void SetInitialCardCounts(int[] counts)
     {
         if (counts == null || counts.Length != CARD_TYPE_COUNT)
@@ -15,6 +15,7 @@ public static class GameSettings
 
         for (int i = 0; i < CARD_TYPE_COUNT; i++)
             cardCounts[i] = counts[i];
+        isSet = true;    
     }
 
     public static int GetCardCount(int cardIndex)
