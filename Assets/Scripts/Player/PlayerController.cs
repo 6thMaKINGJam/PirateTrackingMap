@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
 
     // ===== 필드 =====
     private Vector2Int _currentGridPosition;    // 현재 그리드 좌표
-    private Direction _facingDirection = Direction.Up; // 현재 바라보는 방향
+    private Direction _facingDirection = Direction.Up; // 이동 완료 후 바라보는 방향
+    private Direction currentMovingDirection = Direction.Up; // 현재 실제로 움직이고 있는 방향 (애니메이션용)
 
     [SerializeField] private float moveSpeed = 5f; // 이동 속도 (칸/초)
 
@@ -85,6 +86,39 @@ public class PlayerController : MonoBehaviour
     }
 
     // ===== 내부 메서드 =====
+    
+    /// <summary>
+    /// 이동 방향에 따라 애니메이션 상태 업데이트 (Left/Right는 flipX로 처리)
+    /// </summary>
+    /// <param name="direction">설정할 이동 방향</param>
+    private void UpdateAnimationDirection(Direction direction)
+    {
+        // 모든 bool을 먼저 false로 리셋
+        _animator.SetBool("Up", false);
+        _animator.SetBool("Down", false);
+        _animator.SetBool("Right", false);
+    
+        switch (direction)
+        {
+            case Direction.Up:
+                _animator.SetBool("Up", true);
+                break;
+            
+            case Direction.Down:
+                _animator.SetBool("Down", true);
+                break;
+            
+            case Direction.Right:
+                GetComponent<SpriteRenderer>().flipX = false;
+                _animator.SetBool("Right", true);
+                break;
+            
+            case Direction.Left:
+                GetComponent<SpriteRenderer>().flipX = true;
+                _animator.SetBool("Right", true);
+                break;
+        }
+    }
 
     /// <summary>
     /// 이동 명령 큐를 순차적으로 실행하는 코루틴
@@ -103,6 +137,9 @@ public class PlayerController : MonoBehaviour
             // 상대 방향 → 절대 방향 변환
             Direction absoluteDir = cmd.GetAbsoluteDirection(_facingDirection);
 
+            // 이동 방향이 바뀔 때마다 애니메이션 업데이트
+            UpdateAnimationDirection(absoluteDir);
+            
             // 다음 칸 좌표 계산
             Vector2Int nextPos = GetNextGridPosition(_currentGridPosition, absoluteDir);
 
@@ -112,7 +149,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Out of bounds!");
                 continue; // 이동 스킵
             }
-
+            
             // 이동 애니메이션 실행 (끝날 때까지 대기)
             yield return StartCoroutine(MoveToPosition(nextPos));
 
@@ -125,28 +162,7 @@ public class PlayerController : MonoBehaviour
 
         // 모든 이동 완료 → 최종 방향으로 회전
         _facingDirection = finalDirection;
-        
-        Debug.Log(_facingDirection);
-        if (_facingDirection == Direction.Up)
-        {
-            _animator.SetBool("Up", true);
-            _animator.SetBool("Right", false);
-        }
-        else if (_facingDirection == Direction.Down)
-        {
-            _animator.SetBool("Down", true);
-            _animator.SetBool("Right", false);
-        }
-        else if (_facingDirection == Direction.Right)
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
-            _animator.SetBool("Right", true);
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-            _animator.SetBool("Right", true);
-        }
+        UpdateAnimationDirection(finalDirection);
         
         //RotatePlayerSprite(finalDirection);
 
