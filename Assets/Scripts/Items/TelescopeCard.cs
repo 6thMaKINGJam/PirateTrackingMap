@@ -14,6 +14,15 @@ public class TelescopeCard : MonoBehaviour
 
     public void OnTelescopeCard()
     {
+        StartCoroutine("ShowDirection");
+    }
+
+    private IEnumerator ShowDirection()
+    {
         direction.SetActive(true);
+        
+        yield return new WaitForSeconds(2.0f);
+        
+        direction.SetActive(false);
     }
 }
