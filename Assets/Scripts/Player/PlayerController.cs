@@ -34,10 +34,12 @@ public class PlayerController : MonoBehaviour
     
     // 애니메이션
     private Animator _animator;
+    private PlayerPathSpot _playerPath;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _playerPath = GetComponent<PlayerPathSpot>();
     }
 
     // ===== 공개 메서드 =====
@@ -67,6 +69,23 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Already moving!");
             return;
+        }
+
+        // 애니메이션 설정
+        if (card.CardName == "바닷게")
+        {
+            _animator.SetBool("Crab", true);
+            _animator.SetBool("Running", false);
+        }
+        else if (card.CardName == "러닝맨")
+        {
+            _animator.SetBool("Running", true);
+            _animator.SetBool("Crab", false);
+        }
+        else
+        {
+            _animator.SetBool("Running", false);
+            _animator.SetBool("Crab", false);
         }
 
         // 카드로부터 이동 명령 리스트 가져오기
@@ -213,6 +232,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 startPos = transform.position;
         Vector3 endPos = GridToWorldPosition(targetGridPos);
+        
+        _playerPath.MakePath(startPos);
 
         float elapsed = 0f;
         float duration = 1f / moveSpeed; // 예: 5칸/초 → 0.2초/칸

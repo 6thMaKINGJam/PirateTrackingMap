@@ -8,6 +8,7 @@ public class CardSetupUI : MonoBehaviour
     public GameObject cardSelectUI;
 
     public GameObject mainGameUI;
+    public GameObject ItemSelectUI;
     
     [Header("Card UI")]
     public Button[] cardButtons;      // Card0~Card3의 Button
@@ -30,9 +31,12 @@ public class CardSetupUI : MonoBehaviour
 
     public Outline[] cardOutlines;
 
+    public int[] SelectCounts => counts;
+
     void Start()
     {
         mainGameUI.SetActive(false);
+        ItemSelectUI.SetActive(false);
         
         // 카드 선택 버튼 연결
         for (int i = 0; i < cardButtons.Length; i++)
