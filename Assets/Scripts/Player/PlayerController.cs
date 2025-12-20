@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,14 @@ public class PlayerController : MonoBehaviour
 
     private Queue<MoveCommand> _movementQueue = new Queue<MoveCommand>(); // 이동 명령 큐
     private bool _isMoving = false; // 현재 이동 중인지 여부
+    
+    // 애니메이션
+    private Animator _animator;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     // ===== 공개 메서드 =====
 
@@ -116,7 +125,30 @@ public class PlayerController : MonoBehaviour
 
         // 모든 이동 완료 → 최종 방향으로 회전
         _facingDirection = finalDirection;
-        RotatePlayerSprite(finalDirection);
+        
+        Debug.Log(_facingDirection);
+        if (_facingDirection == Direction.Up)
+        {
+            _animator.SetBool("Up", true);
+            _animator.SetBool("Right", false);
+        }
+        else if (_facingDirection == Direction.Down)
+        {
+            _animator.SetBool("Down", true);
+            _animator.SetBool("Right", false);
+        }
+        else if (_facingDirection == Direction.Right)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+            _animator.SetBool("Right", true);
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            _animator.SetBool("Right", true);
+        }
+        
+        //RotatePlayerSprite(finalDirection);
 
         _isMoving = false;
 
