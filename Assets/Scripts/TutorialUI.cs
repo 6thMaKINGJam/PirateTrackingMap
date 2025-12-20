@@ -5,6 +5,6 @@ public class TutorialUI : MonoBehaviour
 {
     public void OnClickStart()
     {
-        SceneManager.LoadScene("StoryEndScene");
+        SceneManager.LoadScene("StoryCutscene");
     }
 }
