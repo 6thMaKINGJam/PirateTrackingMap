@@ -47,6 +47,7 @@ MonoBehaviour:
   playerHealth: 3
   playerPosition: {x: 0, y: 0}
   treasurePosition: {x: 0, y: 0}
-  monsterCount: 0
-  monsterPositions: []
+  monsterCount: 10
   objectSetter: {fileID: 6204353599062051155, guid: d2be78caeb5f5ac438e70f008aca67ff, type: 3}
+  gridManager: {fileID: 0}
+  playerController: {fileID: 0}
