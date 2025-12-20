@@ -32,12 +32,13 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 몬스터 n마리 위치 리스트 (gird 기준) (ex. [{1, 2}, {4, 8}, {10, 11}]
     /// </summary>
-    private List<Vector2Int> _monsterPositions = new List<Vector2Int>();
+    public List<Vector2Int> monsterPositions = new List<Vector2Int>();
 
     // 그리드 상태 
     private GridState[,] grid = new GridState[GRID_WIDTH, GRID_HEIGHT];
 
     public ObjectSetter objectSetter;
+    public CardSetupUI cardSetupUI;
 
     // ===== 이동 시스템 연결 =====
     [Header("Movement System")]
@@ -113,17 +114,17 @@ public class GameManager : MonoBehaviour
         grid[treasurePosition.x, treasurePosition.y] = GridState.보물;
 
         // 몬스터 3개 위치 랜덤 생성
-        _monsterPositions.Clear();
+        monsterPositions.Clear();
         for (int i = 0; i < monsterCount; i++)
         {
             Vector2Int monsterPos = GetRandomPosition(usedPositions);
-            _monsterPositions.Add(monsterPos);
+            monsterPositions.Add(monsterPos);
             usedPositions.Add(monsterPos);
             grid[monsterPos.x, monsterPos.y] = GridState.몬스터;
         }
         
         // 보물, 몬스터 오브젝트 위치 배치
-        objectSetter.SpawnObjects(treasurePosition, _monsterPositions);
+        objectSetter.SpawnObjects(treasurePosition, monsterPositions);
         
         // ===== 이동 시스템 초기화 =====
         InitializeMovementSystem();
@@ -146,7 +147,7 @@ public class GameManager : MonoBehaviour
 
         // 2. 보물과 몬스터 위치를 GridManager에 오브젝트로 등록
         gridManager.SetObject(treasurePosition.x, treasurePosition.y);
-        foreach (Vector2Int monsterPos in _monsterPositions)
+        foreach (Vector2Int monsterPos in monsterPositions)
         {
             gridManager.SetObject(monsterPos.x, monsterPos.y);
         }
@@ -278,7 +279,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 게임 오버
     /// </summary>
-    private void GameOver()
+    public void GameOver()
     {
         Debug.Log("게임 오버");
         
@@ -291,6 +292,15 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         InitializeGame();
+    }
+
+    /// <summary>
+    /// 새로운 턴 시작
+    /// </summary>
+    public void NewTurn()
+    {
+        cardSetupUI.ItemSelectUI.SetActive(true);
+        
     }
     
     
