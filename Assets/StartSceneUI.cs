@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class StartSceneUI : MonoBehaviour
 {   
+    public string SceneName;
+
     public void OnStartButtonClicked()
     {
         //SceneManager.LoadScene("CardSelectScene");
-
-        SceneManager.LoadScene("StoryCutscene");
+        SceneManager.LoadScene(SceneName);
     }
     
 }

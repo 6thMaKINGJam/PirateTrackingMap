@@ -4,13 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-<<<<<<< Updated upstream
-  m_Scenes: []
-=======
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Main.unity
-    guid: de85078148ef7f1439348c4d8697bd5f
+  - enabled: 1
+    path: Assets/Scenes/CardSelectScene.unity
+    guid: 637dc15340ec89e458f6529f5fc95813
+  - enabled: 1
+    path: Assets/Scenes/ItemTest.unity
+    guid: 4b094b33baff63e45baceb5e28d4ec6c
+  - enabled: 1
+    path: Assets/Scenes/PlayerMove.unity
+    guid: 50027286769760440b98e432aa1c26c5
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: befd1fadf886c1a4c919250d358cb260
@@ -18,10 +21,15 @@ EditorBuildSettings:
     path: Assets/Scenes/StoryCutscene.unity
     guid: f016384d2de2d6e4a80d09a08c33d401
   - enabled: 1
+    path: Assets/Scenes/StoryEndScene.unity
+    guid: 61800eb5296cdcc40b2d24a611eb641d
+  - enabled: 1
     path: Assets/Scenes/Main/Main.unity
     guid: 3f61904cce360fa4b88cd854eefd30fc
   - enabled: 1
-    path: Assets/Scenes/CardSelectScene.unity
-    guid: 33d055af71de2fc44a770baccf88b18b
->>>>>>> Stashed changes
+    path: Assets/Scenes/Main/Start.unity
+    guid: 0250461d5da13d94c8d471a6c5805336
+  - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: ca3e7d832360b734db6c7931932a4c3e
   m_configObjects: {}
