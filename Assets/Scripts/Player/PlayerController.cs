@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("Up", false);
         _animator.SetBool("Down", false);
         _animator.SetBool("Right", false);
+        _animator.SetBool("Left", false);
     
         switch (direction)
         {
@@ -141,13 +142,11 @@ public class PlayerController : MonoBehaviour
                 break;
             
             case Direction.Right:
-                //GetComponent<SpriteRenderer>().flipX = false;
                 _animator.SetBool("Right", true);
                 break;
             
             case Direction.Left:
-                //GetComponent<SpriteRenderer>().flipX = true;
-                _animator.SetBool("Right", true);
+                _animator.SetBool("Left", true);
                 break;
         }
     }
@@ -215,9 +214,9 @@ public class PlayerController : MonoBehaviour
         switch (dir)
         {
             case Direction.Up:
-                return current - Vector2Int.up;    // (x, y+1)
+                return current + Vector2Int.down;    // (x, y+1)
             case Direction.Down:
-                return current + Vector2Int.down;  // (x, y-1)
+                return current + Vector2Int.up;  // (x, y-1)
             case Direction.Left:
                 return current + Vector2Int.left;  // (x-1, y)
             case Direction.Right:
