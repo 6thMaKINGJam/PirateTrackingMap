@@ -23,6 +23,8 @@ public class CardSetupUI : MonoBehaviour
     private int[] counts = new int[CARD_COUNT];
     private int selectedIndex = 0;
 
+    public Outline[] cardOutlines;
+
     void Start()
     {
         // 카드 선택 버튼 연결
@@ -44,15 +46,23 @@ public class CardSetupUI : MonoBehaviour
     {
         selectedIndex = idx;
 
-        // 선택된 카드 강조
         for (int i = 0; i < cardImages.Length; i++)
         {
-            cardImages[i].color =
-                (i == selectedIndex)
-                ? new Color(1f, 1f, 1f, 1f)
-                : new Color(0.85f, 0.85f, 0.85f, 1f);
+            // 기본 색
+            cardImages[i].color = new Color(0.85f, 0.85f, 0.85f, 1f);
+
+            // 테두리 끄기
+            if (cardOutlines[i] != null)
+                cardOutlines[i].enabled = false;
         }
+
+        // 선택된 카드
+        cardImages[selectedIndex].color = Color.white;
+
+        if (cardOutlines[selectedIndex] != null)
+            cardOutlines[selectedIndex].enabled = true;
     }
+
 
     void IncreaseSelected()
     {
