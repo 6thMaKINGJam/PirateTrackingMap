@@ -4,6 +4,11 @@ using TMPro;
 
 public class CardSetupUI : MonoBehaviour
 {
+    [Header("Game UI")]
+    public GameObject cardSelectUI;
+
+    public GameObject mainGameUI;
+    
     [Header("Card UI")]
     public Button[] cardButtons;      // Card0~Card3의 Button
     public Image[] cardImages;        // Card0~Card3의 Image
@@ -27,6 +32,8 @@ public class CardSetupUI : MonoBehaviour
 
     void Start()
     {
+        mainGameUI.SetActive(false);
+        
         // 카드 선택 버튼 연결
         for (int i = 0; i < cardButtons.Length; i++)
         {
@@ -106,7 +113,11 @@ public class CardSetupUI : MonoBehaviour
         if (GetTotal() != TOTAL_LIMIT) return;
 
         GameSettings.SetInitialCardCounts(counts);
-        // 씬 전환은 GameScene 담당자가 처리
+        
+        // 메인 게임으로 넘어감
+        cardSelectUI.SetActive(false);
+        mainGameUI.SetActive(true);
+        GameManager.Instance.RestartGame();
     }
 
     // (선택) 테스트 / 디버그용
