@@ -6,7 +6,7 @@ public enum BGMName
 {
     시작화면,
     메인,
-    엔딩
+    엔딩,
 }
 
 public enum SFXName
@@ -17,7 +17,8 @@ public enum SFXName
     금속탐지실패,
     방향카드화살표,
     원숭이,
-    카드선택
+    카드선택,
+    금속탐지,
 }
 
 [System.Serializable]

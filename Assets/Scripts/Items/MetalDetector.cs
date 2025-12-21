@@ -39,6 +39,7 @@ public class MetalDetector : MonoBehaviour
     {
         InitScanBeam();
 
+        SoundManager.Instance.PlaySFX(SFXName.금속탐지);
         while (currentAngle >= 90f - 360f)
         {
             UpdateScanBeam();
