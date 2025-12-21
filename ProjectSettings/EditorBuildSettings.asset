@@ -5,34 +5,34 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CardSelectScene.unity
     guid: 637dc15340ec89e458f6529f5fc95813
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ItemTest.unity
     guid: 4b094b33baff63e45baceb5e28d4ec6c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PlayerMove.unity
     guid: 50027286769760440b98e432aa1c26c5
   - enabled: 1
-    path: Assets/Scenes/StartScene.unity
+    path: Assets/Scenes/Main/StartScene.unity
     guid: befd1fadf886c1a4c919250d358cb260
   - enabled: 1
-    path: Assets/Scenes/StoryCutscene.unity
+    path: Assets/Scenes/Main/StoryCutscene.unity
     guid: f016384d2de2d6e4a80d09a08c33d401
   - enabled: 1
-    path: Assets/Scenes/StoryEndScene.unity
+    path: Assets/Scenes/Main/StoryEndScene.unity
     guid: 61800eb5296cdcc40b2d24a611eb641d
   - enabled: 1
     path: Assets/Scenes/Main/Main.unity
     guid: 3f61904cce360fa4b88cd854eefd30fc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main/Start.unity
     guid: 0250461d5da13d94c8d471a6c5805336
   - enabled: 1
-    path: Assets/Scenes/TutorialScene.unity
+    path: Assets/Scenes/Main/TutorialScene.unity
     guid: ca3e7d832360b734db6c7931932a4c3e
   - enabled: 1
-    path: Assets/Scenes/GameWinScene.unity
+    path: Assets/Scenes/Main/GameWinScene.unity
     guid: c2cf518694c43244198796cf6a7d7606
   m_configObjects: {}
