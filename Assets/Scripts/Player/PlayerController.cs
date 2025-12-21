@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
     private RectTransform canvasRT;
     private RectTransform playerRT;
 
+    private void Awake()
+    {
+        GameManager.Instance.playerController = this;
+    }
+
     private void Start()
     {
         _animator = GetComponent<Animator>();

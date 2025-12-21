@@ -21,6 +21,11 @@ public class ObjectSetter : MonoBehaviour
     
     private RectTransform canvasRT;
 
+    private void Awake()
+    {
+        GameManager.Instance.objectSetter = this;
+    }
+
     private void Start()
     {
         canvasRT = GetComponentInParent<Canvas>().gameObject.GetComponent<RectTransform>();

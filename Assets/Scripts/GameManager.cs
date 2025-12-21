@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     // ===== 이동 시스템 연결 =====
     [Header("Movement System")]
     [SerializeField] private GridManager gridManager;
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] public PlayerController playerController;
     private NumberDisplay _numberDisplay;
     
     // ===== 카드 리스트 =====
@@ -96,6 +96,24 @@ public class GameManager : MonoBehaviour
 
         // 게임 초기화
         InitializeGame();
+    }
+    
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        cardSetupUI = FindObjectOfType<CardSetupUI>();
+        /*playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        objectSetter = FindObjectOfType<ObjectSetter>();*/
+        gridManager = FindObjectOfType<GridManager>();
     }
     
     /// <summary>
@@ -302,7 +320,6 @@ public class GameManager : MonoBehaviour
         if (playerHealth <= 0)
         {
             GameOver(GameOverType.ByMonster);
-            //MonsterGameOver();
         }
     }
 
@@ -313,6 +330,9 @@ public class GameManager : MonoBehaviour
     {
         // 게임 오버 처리 로직
         GameOver(GameOverType.ByTurnLimit);
+        
+        // 카드 수 초기화
+        cardSetupUI.ResetCardSelection();
     }
 
     public void GameOver(GameOverType type)
@@ -320,6 +340,9 @@ public class GameManager : MonoBehaviour
         LastGameOverType = type;
         Debug.Log("게임 오버: " + type);
 
+        // 카드 수 초기화
+        cardSetupUI.ResetCardSelection();
+        
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
     }
 
@@ -328,6 +351,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameSuccess()
     {
+        // 카드 수 초기화
+        cardSetupUI.ResetCardSelection();
+        
         SceneManager.LoadScene("GameWinScene");
     }
 

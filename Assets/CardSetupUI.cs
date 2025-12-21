@@ -131,4 +131,14 @@ public class CardSetupUI : MonoBehaviour
         counts.CopyTo(copy, 0);
         return copy;
     }
+
+    public void ResetCardSelection()
+    {
+        for (int i = 0; i < CARD_COUNT; i++)
+        {
+            counts[i] = 0;
+        }
+
+        selectedIndex = 0;
+    }
 }
