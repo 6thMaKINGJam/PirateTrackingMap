@@ -6796,6 +6796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6648834060865901919, guid: d63712791c2acd04fa202a61788bca5a, type: 3}
+      propertyPath: gridLayoutGroup
+      value: 
+      objectReference: {fileID: 83415936}
     - target: {fileID: 7910832393688481392, guid: d63712791c2acd04fa202a61788bca5a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

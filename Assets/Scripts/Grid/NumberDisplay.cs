@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 지뢰찾기 스타일의 숫자를 표시하는 클래스
@@ -9,7 +11,9 @@ public class NumberDisplay : MonoBehaviour
 {
     // ===== 필드 =====
     private GridManager _gridManager; // GridManager 참조
+    private ObjectSetter _objectSetter;
 
+    [SerializeField] private GridLayoutGroup gridLayoutGroup;
     [SerializeField] private GameObject numberSpritePrefab; // 스프라이트 프리팹
     [SerializeField] private Sprite[] numberSprites; // 1~8 스프라이트 배열
 
@@ -25,6 +29,10 @@ public class NumberDisplay : MonoBehaviour
         new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1)  // 하단 3칸
     };
 
+    private void Start()
+    {
+        _objectSetter = GameManager.Instance.objectSetter;
+    }
     // ===== 공개 메서드 =====
 
     /// <summary>
@@ -132,12 +140,14 @@ public class NumberDisplay : MonoBehaviour
         if (_numberObjects.ContainsKey(pos))
         {
             // 스프라이트 변경
-            SpriteRenderer spriteRenderer = _numberObjects[pos].GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = numberSprites[number - 1]; // 배열 인덱스는 0부터
+            Image image = _numberObjects[pos].GetComponent<Image>();
+            image.sprite = numberSprites[number - 1];
+            /*SpriteRenderer spriteRenderer = _numberObjects[pos].GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = numberSprites[number - 1]; // 배열 인덱스는 0부터*/
         }
         else
         {
-            // 새로 생성
+            /*// 새로 생성
             Vector3 worldPos = GridToWorldPosition(pos);
             GameObject numberObj = Instantiate(numberSpritePrefab, worldPos, Quaternion.identity);
 
@@ -145,8 +155,57 @@ public class NumberDisplay : MonoBehaviour
             spriteRenderer.sprite = numberSprites[number - 1]; // 1 → index 0
             spriteRenderer.sortingOrder = 10; // 앞에 표시
 
+            _numberObjects[pos] = numberObj;*/
+            // 새로 생성
+            GameObject numberObj = Instantiate(numberSpritePrefab, _objectSetter.transform);
+            
+            // RectTransform 설정
+            RectTransform numberRT = numberObj.GetComponent<RectTransform>();
+            
+            // 그리드 셀 위치로 이동
+            PlaceAtGridPosition(numberRT, pos);
+            
+            // Image 컴포넌트 설정
+            Image image = numberObj.GetComponent<Image>();
+            if (image == null)
+            {
+                image = numberObj.AddComponent<Image>();
+            }
+            
+            image.sprite = numberSprites[number - 1]; // 1 → index 0
+            image.raycastTarget = false; // 클릭 방지
+            
+            // 오브젝트 이름 설정 (디버깅용)
+            numberObj.name = $"Number_{pos.x}_{pos.y}_{number}";
+            
             _numberObjects[pos] = numberObj;
         }
+    }
+    
+    /// <summary>
+    /// UI 오브젝트를 특정 그리드 위치에 배치
+    /// </summary>
+    /// <param name="objRect">배치할 오브젝트의 RectTransform</param>
+    /// <param name="gridPos">그리드 좌표</param>
+    private void PlaceAtGridPosition(RectTransform objRect, Vector2Int gridPos)
+    {
+        // 그리드 인덱스 계산
+        int index = gridPos.y * 16 + gridPos.x;
+        
+        if (index < 0 || index >= gridLayoutGroup.transform.childCount)
+        {
+            Debug.LogError($"Invalid grid index: {index} for position ({gridPos.x}, {gridPos.y})");
+            return;
+        }
+        
+        // 해당 그리드 셀 가져오기
+        RectTransform gridCell = gridLayoutGroup.transform.GetChild(index) as RectTransform;
+        
+        // 월드 위치 복사
+        objRect.position = gridCell.position;
+        
+        // 크기도 그리드 셀과 동일하게 (선택사항)
+        //objRect.sizeDelta = gridCell.sizeDelta;
     }
 
     /// <summary>
@@ -156,6 +215,9 @@ public class NumberDisplay : MonoBehaviour
     /// <returns>월드 좌표</returns>
     private Vector3 GridToWorldPosition(Vector2Int gridPos)
     {
+        /*int index = gridPos.y * 16 + gridPos.x;
+        RectTransform gridCell = gridLayoutGroup.transform.GetChild(index) as RectTransform;*/
+
         // Z축을 -0.5로 해서 그리드보다 앞에 표시
         return new Vector3(gridPos.x, gridPos.y, -0.5f);
     }
