@@ -254,7 +254,7 @@ MonoBehaviour:
   - "(\uB538\uAE4D)\r\n"
   - "\"\uC6B0\uAE4C\uB07C\uB07C?!\"\n\uC5B4\u2026\uC774\uAC83\uC740?! \uBC14\uB098\uB098\uC796\uC544????\r\n"
   - "\"\uC6B0\uB07C\uC6B0\uB07C!\"\n\uC544\uC2F8!!!!!\r\n\n"
-  sceneChangeTo: StartScene
+  sceneChangeTo: GameWinScene
   fadeSpeed: 1.5
   maxfadeTime: 6
   endMessageStartIndex: 4
