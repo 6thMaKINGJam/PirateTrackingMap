@@ -182,6 +182,12 @@ public class PlayerController : MonoBehaviour
             }
 
             // 보물 있는지
+            if (GameManager.Instance.grid[nextPos.x, nextPos.y] == GridState.보물)
+            {
+                // 게임 성공
+                GameManager.Instance.GameSuccess();
+                break;
+            }
             
             // 몬스터가 있는지
             if (GameManager.Instance.grid[nextPos.x, nextPos.y] == GridState.몬스터)
@@ -284,7 +290,7 @@ public class PlayerController : MonoBehaviour
         Vector3 startPos = playerRT.position;
         Vector3 endPos = GridToWorldPosition(targetGridPos);
         
-        //_playerPath.MakePath(startPos);
+        _playerPath.MakePath(startPos);
 
         float elapsed = 0f;
         float duration = 1f / moveSpeed; // 예: 5칸/초 → 0.2초/칸

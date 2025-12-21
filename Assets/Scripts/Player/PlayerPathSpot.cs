@@ -21,6 +21,6 @@ public class PlayerPathSpot : MonoBehaviour
     public void MakePath(Vector3 pos)
     {
         GameObject go = Instantiate(spot, path);
-        go.transform.position = pos;
+        go.GetComponent<RectTransform>().position = pos;
     }
 }

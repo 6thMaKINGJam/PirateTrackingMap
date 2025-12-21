@@ -507,6 +507,10 @@ PrefabInstance:
       propertyPath: playerPosition.y
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 4414506615192347147, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
+      propertyPath: successEndingName
+      value: GameWinScene
+      objectReference: {fileID: 0}
     - target: {fileID: 8405073510334488117, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -931,6 +935,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -672
       objectReference: {fileID: 0}
+    - target: {fileID: 533821203927792977, guid: cee234976ad75e44fa33595bf03017ec, type: 3}
+      propertyPath: path
+      value: 
+      objectReference: {fileID: 1355726642}
     - target: {fileID: 563292759708851616, guid: cee234976ad75e44fa33595bf03017ec, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6943,6 +6951,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6fda19f355f6040bf3e80e188c247e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1355726642 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2029951303163678173, guid: cee234976ad75e44fa33595bf03017ec, type: 3}
+  m_PrefabInstance: {fileID: 783429888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1461913820
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -76,6 +76,7 @@ public class ItemChoiceUI : MonoBehaviour
         if (messageText != null)
             messageText.text = "Attack power increased by +1.";
 
+        GameManager.Instance.playerHealth++;
         // 여기서 나중에 공격력+1 로직 연결하면 됨
     }
 

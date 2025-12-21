@@ -1,5 +1,7 @@
 using System;using UnityEngine;
-using System.Collections.Generic;using Random = UnityEngine.Random;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public enum GridState
 {
@@ -61,6 +63,11 @@ public class GameManager : MonoBehaviour
     // 턴 수 
     public int CountTurn = 10;
     
+    // 엔딩 씬 이름
+    public string successEndingName;
+    public string monsterEndingName;
+    public string noTreasureEndingName;
+    
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -112,7 +119,7 @@ public class GameManager : MonoBehaviour
     public void InitializeGame()
     {
         // 플레이어 체력 초기화
-        playerHealth = 3;
+        playerHealth = 0;
         playerPosition = new Vector2Int(0, 15);
         
         // 그리드 초기화
@@ -210,8 +217,8 @@ public class GameManager : MonoBehaviour
         // 플레이어 위치 업데이트
         playerPosition = pos;
 
-        // 해당 위치의 상태 확인
-        CheckCellState(pos);
+        /*// 해당 위치의 상태 확인
+        CheckCellState(pos);*/
     }
 
     /// <summary>
@@ -295,6 +302,7 @@ public class GameManager : MonoBehaviour
         if (playerHealth <= 0)
         {
             GameOver(GameOverType.ByMonster);
+            MonsterGameOver();
         }
     }
 
@@ -303,8 +311,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        Debug.Log("게임 오버");
-        
         // 게임 오버 처리 로직
         GameOver(GameOverType.ByTurnLimit);
     }
@@ -317,6 +323,19 @@ public class GameManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
     }
     
+    public void MonsterGameOver()
+    {
+        SceneManager.LoadScene(monsterEndingName);
+    }
+
+    /// <summary>
+    /// 게임 성공
+    /// </summary>
+    public void GameSuccess()
+    {
+        SceneManager.LoadScene(successEndingName);
+    }
+
     /// <summary>
     /// 게임 재시작
     /// </summary>
