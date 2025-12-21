@@ -33,6 +33,11 @@ public class ItemChoiceUI : MonoBehaviour
 
     private int selectedItem = -1; // 0=metal, 1=scope
 
+    void Awake()
+    {
+        messageText = GetComponent<TMP_text>();
+    }
+
     void Start()
     {
         // 초기 화면: Yes/No만
@@ -78,10 +83,8 @@ public class ItemChoiceUI : MonoBehaviour
         panelMessage.SetActive(true);
 
         if (messageText != null)
-            
             messageText.text = texttext;
-            messageText.ForceMeshUpdate();
-
+            
         GameManager.Instance.playerHealth++;
         // 여기서 나중에 공격력+1 로직 연결하면 됨
     }

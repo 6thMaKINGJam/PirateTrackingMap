@@ -816,7 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e0cb95f54122a49af7faace5bac791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texttext: "\uACF5\uACA9\uB825\uC774 +1 \uC99D\uAC00\uD588\uC2B5\uB2C8\uB2E4."
+  texttext: "Attack power +1.\u3131\u3134"
   texttext1: You used metal detector.
   texttext2: You used telescope.
   panelYesNo: {fileID: 8364127354111978721}
@@ -1436,9 +1436,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC544\uC774\uD15C\uC744 \uC0AC\uC6A9\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?
-    \uC544\uC774\uD15C \uC0AC\uC6A9 \uB300\uC2E0 \uD6C8\uB828\uC744 \uD1B5\uD574
-    \uACF5\uACA9\uB825\uC744 +1 \uC99D\uAC00\uC2DC\uD0AC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  m_text: Do you want to use a item? if you don't use items, you can increase your
+    attack power +1.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f76540bdf604bbb4ab5dde0a2da5aab8, type: 2}
   m_sharedMaterial: {fileID: 2768080162318601577, guid: f76540bdf604bbb4ab5dde0a2da5aab8, type: 2}
