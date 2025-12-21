@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7910832393688481392}
   - component: {fileID: 2285893809378561131}
   - component: {fileID: 6648834060865901919}
-  - component: {fileID: 2775308414029432227}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -58,24 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816d6eed9f41fc44bae718ec6ab50bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridLayoutGroup: {fileID: 0}
   numberSpritePrefab: {fileID: 6246487124466480422, guid: 538ead7886520cb45a006bb85c1b1eb3, type: 3}
   numberSprites:
-  - {fileID: 21300000, guid: b37649b5ebea313489ad81b4447fe4c2, type: 3}
-  - {fileID: 21300000, guid: 56b3a47b22dbd2746843c912017a05be, type: 3}
-  - {fileID: 21300000, guid: bf26275bbc208bd479cb096261afe0fe, type: 3}
-  - {fileID: 21300000, guid: 45b25bd4876e28c49a6f692367c4de50, type: 3}
---- !u!114 &2775308414029432227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5533677999978541435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1846c36d41349114987de4348623e31d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridWidth: 16
-  gridHeight: 16
-  cellTile: {fileID: 0}
+  - {fileID: 21300000, guid: 64343d4e7d6c5ed449fafa52f4bb5987, type: 3}
+  - {fileID: 21300000, guid: 9e22bf59f18c99847bae5856304a69cf, type: 3}
+  - {fileID: 21300000, guid: 7d982adcadc0ef84b8dc922ea680cc21, type: 3}
+  - {fileID: 21300000, guid: ef42cc11bb69c1843b6082e667fa60d8, type: 3}
