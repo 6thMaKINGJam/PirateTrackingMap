@@ -185,6 +185,9 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance.grid[nextPos.x, nextPos.y] == GridState.보물)
             {
                 // 게임 성공
+                GameManager.Instance.objectSetter.treasure.SetActive(true);
+                yield return new WaitForSeconds(1.0f);
+                
                 GameManager.Instance.GameSuccess();
                 break;
             }
@@ -202,7 +205,8 @@ public class PlayerController : MonoBehaviour
                         index = i;
                     }
                 }
-
+                
+                GameManager.Instance.objectSetter.monsters[index].SetActive(true);
                 Monster mon = GameManager.Instance.objectSetter.monsters[index].GetComponent<Monster>();
                 GameManager.Instance.grid[nextPos.x, nextPos.y] = GridState.None;
                 
@@ -242,7 +246,7 @@ public class PlayerController : MonoBehaviour
         
         if (GameManager.Instance.CountTurn <= 0)
         {
-            GameManager.Instance.GameOver();
+            GameManager.Instance.GameOver(GameOverType.ByTurnLimit);
         }
         else
             GameManager.Instance.NewTurn();

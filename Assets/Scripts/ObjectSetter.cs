@@ -59,14 +59,14 @@ public class ObjectSetter : MonoBehaviour
         player.SetActive(true);
         
         SetPosition(treasure, treasurePos);
-        treasure.SetActive(true);
+        treasure.SetActive(false);
 
         for (int i = 0; i < monsterPos.Count; i++)
         {
             if (monsters[i] != null)
             {
                 SetPosition(monsters[i], monsterPos[i]);
-                monsters[i].SetActive(true);
+                monsters[i].SetActive(false);
             }
         }
     }

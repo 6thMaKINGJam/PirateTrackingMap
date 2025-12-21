@@ -302,7 +302,7 @@ public class GameManager : MonoBehaviour
         if (playerHealth <= 0)
         {
             GameOver(GameOverType.ByMonster);
-            MonsterGameOver();
+            //MonsterGameOver();
         }
     }
 
@@ -322,18 +322,13 @@ public class GameManager : MonoBehaviour
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
     }
-    
-    public void MonsterGameOver()
-    {
-        SceneManager.LoadScene(monsterEndingName);
-    }
 
     /// <summary>
     /// 게임 성공
     /// </summary>
     public void GameSuccess()
     {
-        SceneManager.LoadScene(successEndingName);
+        SceneManager.LoadScene("GameWinScene");
     }
 
     /// <summary>

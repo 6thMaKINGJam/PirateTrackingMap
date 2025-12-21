@@ -47,7 +47,7 @@ public class Monster : MonoBehaviour
             //StartCoroutine("ShowText");
             Debug.Log("공격 실패");
             yield return new WaitForSeconds(1.0f);
-            GameManager.Instance.MonsterGameOver();
+            GameManager.Instance.GameOver(GameOverType.ByMonster);
         }
     }
 
