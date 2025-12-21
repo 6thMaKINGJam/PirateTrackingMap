@@ -33,10 +33,10 @@ public class ItemChoiceUI : MonoBehaviour
 
     private int selectedItem = -1; // 0=metal, 1=scope
 
-    void Awake()
-    {
-        messageText = GetComponent<TMP_text>();
-    }
+    // void Awake()
+    // {
+    //     messageText = GetComponent<TMP_Text>();
+    // }
 
     void Start()
     {
