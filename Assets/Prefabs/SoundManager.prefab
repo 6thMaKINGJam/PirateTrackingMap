@@ -48,7 +48,7 @@ MonoBehaviour:
   sfxSources: []
   bgmSounds:
   - name: 1
-    clip: {fileID: 8300000, guid: e73945fd4b51bb34fb02f6df1bb0747a, type: 3}
+    clip: {fileID: 8300000, guid: 3a0bc84952e23694696dd6966aabec00, type: 3}
     loop: 1
     volume: 0.497
     source: {fileID: 0}
