@@ -23,9 +23,10 @@ public class Telescope : MonoBehaviour
     public void UseTelescope()
     {
         _playerPos = GameManager.Instance.playerPosition;
-        _treasurePos = GameManager.Instance.objectSetter.GetTreasurePosition();
+        _treasurePos = GameManager.Instance.treasurePosition;
         
-        Vector2 direction = (_treasurePos - _playerPos).normalized;
+        Vector2 direction = new Vector2(_treasurePos.x - _playerPos.x, _playerPos.y - _treasurePos.y).normalized;
+        //Vector2 direction = (_treasurePos - _playerPos).normalized;
         
         // 위치 설정
         Vector2 arrowPosition = _playerPos + direction * 150.0f;
