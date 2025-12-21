@@ -26,7 +26,7 @@ public class CardHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExit
     // 원래 상태 저장
     private Vector3 originalScale;
     private Vector2 originalPosition;
-    private int originalSortOrder;
+    public int originalSortOrder;
     private Canvas cardCanvas; // 각 카드의 개별 Canvas
     
     private Coroutine currentAnimation;
@@ -125,7 +125,8 @@ public class CardHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
         
         cardCanvas.overrideSorting = true;
-        originalSortOrder = cardCanvas.sortingOrder;
+        cardCanvas.sortingOrder = originalSortOrder;
+        //originalSortOrder = cardCanvas.sortingOrder;
         
         // GraphicRaycaster 추가 (없으면)
         if (GetComponent<GraphicRaycaster>() == null)
