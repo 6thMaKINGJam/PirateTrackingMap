@@ -8,6 +8,10 @@ public class ItemChoiceUI : MonoBehaviour
     public string texttext1;
     public string texttext2;
 
+    private Button telescopeBtn;
+    private Button metalBtn;
+
+
     [Header("Panels")]
     public GameObject panelYesNo;
     public GameObject panelItemSelect;
@@ -51,6 +55,14 @@ public class ItemChoiceUI : MonoBehaviour
 
         if (okButton != null)
             okButton.onClick.AddListener(ShowYesNo);
+
+        // MainGame 버튼들 찾아두기 (Hierarchy 경로)
+        telescopeBtn = GameObject.Find("Canvas/MainGame/Telescope")?.GetComponent<Button>();
+        metalBtn = GameObject.Find("Canvas/MainGame/MetalDetector")?.GetComponent<Button>();
+
+        if (telescopeBtn == null) Debug.LogError("Telescope Button 못 찾음: Canvas/MainGame/Telescope 확인");
+        if (metalBtn == null) Debug.LogError("MetalDetector Button 못 찾음: Canvas/MainGame/MetalDetector 확인");
+    
     }
 
     void ShowYesNo()
@@ -66,7 +78,8 @@ public class ItemChoiceUI : MonoBehaviour
     }
 
     void OnYes()
-    {
+    {   
+        
         panelYesNo.SetActive(false);
         panelItemSelect.SetActive(true);
         panelMessage.SetActive(false);
@@ -74,6 +87,10 @@ public class ItemChoiceUI : MonoBehaviour
         // 아이템 선명하게
         SetItemEnabledVisual(true);
         SetItemHighlight(-1);
+
+        if (telescopeBtn != null) telescopeBtn.interactable = true;
+        if (metalBtn != null) metalBtn.interactable = true;
+
     }
 
     void OnNo()
@@ -87,6 +104,10 @@ public class ItemChoiceUI : MonoBehaviour
             
         GameManager.Instance.playerHealth++;
         // 여기서 나중에 공격력+1 로직 연결하면 됨
+
+        if (telescopeBtn != null) telescopeBtn.interactable = false;
+        if (metalBtn != null) metalBtn.interactable = false;
+
     }
 
 
