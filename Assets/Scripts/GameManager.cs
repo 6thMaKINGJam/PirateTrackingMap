@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public const int GRID_HEIGHT = 16;
 
     // 플레이어 체력
-    public int playerHealth = 3;
+    public int playerHealth = 0;
     public Vector2Int playerPosition;
 
     // 게임 오버 타입
@@ -61,12 +61,7 @@ public class GameManager : MonoBehaviour
     private List<MoveCard> availableCards;
     
     // 턴 수 
-    public int CountTurn = 10;
-    
-    // 엔딩 씬 이름
-    public string successEndingName;
-    public string monsterEndingName;
-    public string noTreasureEndingName;
+    public int CountTurn = 15;
     
     private void Awake()
     {
@@ -354,7 +349,7 @@ public class GameManager : MonoBehaviour
         // 카드 수 초기화
         cardSetupUI.ResetCardSelection();
         
-        SceneManager.LoadScene("GameWinScene");
+        SceneManager.LoadScene("StoryEndScene");
     }
 
     /// <summary>
@@ -465,6 +460,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("러닝맨 카드 사용!");
             Instance.playerController.UseCard(new CardRunningMan());
             Instance.cardSetupUI.SelectCounts[0]--;
+            SoundManager.Instance.PlaySFX(SFXName.카드선택);
         }
     }
 
@@ -477,7 +473,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("유턴 카드 사용!");
             Instance.playerController.UseCard(new CardUTurn());
-            Instance.cardSetupUI.SelectCounts[1]--;      
+            Instance.cardSetupUI.SelectCounts[1]--;  
+            SoundManager.Instance.PlaySFX(SFXName.카드선택);
         }
     }
 
@@ -493,6 +490,7 @@ public class GameManager : MonoBehaviour
             card.SetChoice(true); // 왼쪽
             Instance.playerController.UseCard(card);
             Instance.cardSetupUI.SelectCounts[2]--;
+            SoundManager.Instance.PlaySFX(SFXName.카드선택);
         }
     }
 
@@ -532,6 +530,7 @@ public class GameManager : MonoBehaviour
             card.SetChoice(Direction.Right);
             Instance.playerController.UseCard(card);
             Instance.cardSetupUI.SelectCounts[3]--;
+            SoundManager.Instance.PlaySFX(SFXName.카드선택);
         }
     }
 

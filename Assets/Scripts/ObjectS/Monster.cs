@@ -35,6 +35,7 @@ public class Monster : MonoBehaviour
             Debug.Log("공격 성공");
             GameManager.Instance.playerHealth -= health;
             //StartCoroutine("ShowText");
+            yield return new WaitForSeconds(1.0f);
             gameObject.SetActive(false);
             
             yield return new WaitForSeconds(1.0f);
@@ -46,6 +47,7 @@ public class Monster : MonoBehaviour
             //resultText.text = "공격 실패 ..";
             //StartCoroutine("ShowText");
             Debug.Log("공격 실패");
+            SoundManager.Instance.PlaySFX(SFXName.게임실패);
             yield return new WaitForSeconds(1.0f);
             GameManager.Instance.GameOver(GameOverType.ByMonster);
         }

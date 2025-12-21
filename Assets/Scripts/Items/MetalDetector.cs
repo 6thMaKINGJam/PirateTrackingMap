@@ -49,11 +49,13 @@ public class MetalDetector : MonoBehaviour
         if (CheckDetected())
         {
             // 있다면
+            SoundManager.Instance.PlaySFX(SFXName.금속탐지성공);
             resultText.text = "탐지되었습니다!";
         }
         else
         {
             // 없다면
+            SoundManager.Instance.PlaySFX(SFXName.금속탐지실패);
             resultText.text = "탐지되지않았습니다.";
         }
         

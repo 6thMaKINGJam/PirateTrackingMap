@@ -158,6 +158,7 @@ public class NumberDisplay : MonoBehaviour
             _numberObjects[pos] = numberObj;*/
             // 새로 생성
             GameObject numberObj = Instantiate(numberSpritePrefab, _objectSetter.transform);
+            SoundManager.Instance.PlaySFX(SFXName.방향카드화살표);
             
             // RectTransform 설정
             RectTransform numberRT = numberObj.GetComponent<RectTransform>();

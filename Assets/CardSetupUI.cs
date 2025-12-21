@@ -24,7 +24,7 @@ public class CardSetupUI : MonoBehaviour
     public CanvasGroup startButtonCanvasGroup;
 
     private const int CARD_COUNT = 4;
-    private const int TOTAL_LIMIT = 10;
+    private const int TOTAL_LIMIT = 15;
 
     private int[] counts = new int[CARD_COUNT];
     private int selectedIndex = 0;
@@ -78,6 +78,7 @@ public class CardSetupUI : MonoBehaviour
     void IncreaseSelected()
     {
         if (GetTotal() >= TOTAL_LIMIT) return;
+        SoundManager.Instance.PlaySFX(SFXName.카드선택);
         counts[selectedIndex]++;
         RefreshUI();
     }

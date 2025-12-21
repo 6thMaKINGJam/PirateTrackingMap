@@ -35,6 +35,8 @@ public class Telescope : MonoBehaviour
         // 회전 설정
         float angle = Vector2.SignedAngle(Vector2.up, direction);
         gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
+        
+        SoundManager.Instance.PlaySFX(SFXName.방향카드화살표);
     }
     
 

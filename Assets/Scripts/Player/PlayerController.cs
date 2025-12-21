@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -191,6 +190,7 @@ public class PlayerController : MonoBehaviour
             {
                 // 게임 성공
                 GameManager.Instance.objectSetter.treasure.SetActive(true);
+                SoundManager.Instance.PlaySFX(SFXName.게임성공);
                 yield return new WaitForSeconds(1.0f);
                 
                 GameManager.Instance.GameSuccess();
@@ -251,6 +251,7 @@ public class PlayerController : MonoBehaviour
         
         if (GameManager.Instance.CountTurn <= 0)
         {
+            SoundManager.Instance.PlaySFX(SFXName.게임실패);
             GameManager.Instance.GameOver(GameOverType.ByTurnLimit);
         }
         else
