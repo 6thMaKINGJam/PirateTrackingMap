@@ -86,6 +86,7 @@ public class CardSetupUI : MonoBehaviour
     void DecreaseSelected()
     {
         if (counts[selectedIndex] <= 0) return;
+        SoundManager.Instance.PlaySFX(SFXName.카드선택);
         counts[selectedIndex]--;
         RefreshUI();
     }
