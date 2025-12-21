@@ -231,6 +231,15 @@ public class PlayerController : MonoBehaviour
 
         // 완료 이벤트 발생 (NumberDisplay가 받음)
         OnMovementComplete?.Invoke();
+
+        yield return new WaitForSeconds(1.0f);
+        
+        if (GameManager.Instance.CountTurn <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
+        else
+            GameManager.Instance.NewTurn();
     }
 
     /// <summary>

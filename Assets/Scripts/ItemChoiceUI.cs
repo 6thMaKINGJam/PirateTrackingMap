@@ -52,6 +52,8 @@ public class ItemChoiceUI : MonoBehaviour
 
         selectedItem = -1;
         SetItemHighlight(-1);
+        
+        GameManager.Instance.cardSetupUI.ItemSelectUI.SetActive(false);
     }
 
     void OnYes()

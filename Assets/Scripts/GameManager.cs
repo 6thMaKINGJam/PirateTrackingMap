@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     // 그리드 설정
     public const int GRID_WIDTH = 16;
     public const int GRID_HEIGHT = 16;
-    public const float CELL_SIZE = 50.0f;
 
     // 플레이어 체력
     public int playerHealth = 3;
@@ -49,6 +48,9 @@ public class GameManager : MonoBehaviour
     
     // ===== 카드 리스트 =====
     private List<MoveCard> availableCards;
+    
+    // 턴 수 
+    public int CountTurn = 10;
     
     private void Awake()
     {
@@ -136,6 +138,9 @@ public class GameManager : MonoBehaviour
         
         // ===== 이동 시스템 초기화 =====
         InitializeMovementSystem();
+        
+        // 턴 수 초기화
+        CountTurn = 10;
     }
     
     /// <summary>
@@ -300,6 +305,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         InitializeGame();
+        NewTurn();
     }
 
     /// <summary>
@@ -307,8 +313,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NewTurn()
     {
-        //cardSetupUI.ItemSelectUI.SetActive(true);
-        
+        CountTurn--;
+        cardSetupUI.ItemSelectUI.SetActive(true);
     }
     
     
