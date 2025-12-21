@@ -3,7 +3,11 @@ using UnityEngine.UI;
 using TMPro;
 
 public class ItemChoiceUI : MonoBehaviour
-{
+{   
+    public string texttext;
+    public string texttext1;
+    public string texttext2;
+
     [Header("Panels")]
     public GameObject panelYesNo;
     public GameObject panelItemSelect;
@@ -74,11 +78,15 @@ public class ItemChoiceUI : MonoBehaviour
         panelMessage.SetActive(true);
 
         if (messageText != null)
-            messageText.text = "Attack power increased by +1.";
+            
+            messageText.text = texttext;
+            messageText.ForceMeshUpdate();
 
         GameManager.Instance.playerHealth++;
         // 여기서 나중에 공격력+1 로직 연결하면 됨
     }
+
+
 
     void OnSelectItem(int itemIndex)
     {
@@ -93,8 +101,8 @@ public class ItemChoiceUI : MonoBehaviour
         panelMessage.SetActive(true);
         if (messageText != null)
             messageText.text = (selectedItem == 0)
-                ? "You used metal detector."
-                : "You used telescope.";
+                ? texttext1 
+                : texttext2;
     }
 
     void SetItemHighlight(int idx)

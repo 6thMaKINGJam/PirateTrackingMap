@@ -816,6 +816,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e0cb95f54122a49af7faace5bac791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  texttext: Attack power + 1
+  texttext1: You used metal detector.
+  texttext2: You used telescope.
   panelYesNo: {fileID: 8364127354111978721}
   panelItemSelect: {fileID: 8880468367634883209}
   panelMessage: {fileID: 347358415889340659}
