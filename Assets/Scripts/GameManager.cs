@@ -8,6 +8,12 @@ public enum GridState
     몬스터,
     플레이어
 }
+public enum GameOverType
+{
+    ByMonster,
+    ByTurnLimit
+}
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -20,6 +26,9 @@ public class GameManager : MonoBehaviour
     // 플레이어 체력
     public int playerHealth = 3;
     public Vector2Int playerPosition;
+
+    // 게임 오버 타입
+    public GameOverType LastGameOverType { get; private set; } = GameOverType.ByTurnLimit;
 
     /// <summary>
     /// 보물 위치 (grid 기준) (ex. {3, 10}
@@ -285,7 +294,7 @@ public class GameManager : MonoBehaviour
 
         if (playerHealth <= 0)
         {
-            GameOver();
+            GameOver(GameOverType.ByMonster);
         }
     }
 
@@ -297,8 +306,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("게임 오버");
         
         // 게임 오버 처리 로직
+        GameOver(GameOverType.ByTurnLimit);
     }
 
+    public void GameOver(GameOverType type)
+    {
+        LastGameOverType = type;
+        Debug.Log("게임 오버: " + type);
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
+    }
+    
     /// <summary>
     /// 게임 재시작
     /// </summary>
