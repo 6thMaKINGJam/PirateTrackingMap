@@ -123,7 +123,7 @@ public class CardSetupUI : MonoBehaviour
         // 메인 게임으로 넘어감
         cardSelectUI.SetActive(false);
         mainGameUI.SetActive(true);
-        GameManager.Instance.RestartGame();
+        GameManager.Instance.StartGame();
     }
 
     // (선택) 테스트 / 디버그용

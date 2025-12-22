@@ -50,11 +50,10 @@ MonoBehaviour:
   monsterCount: 3
   monsterPositions: []
   objectSetter: {fileID: 0}
-  _directionSelector: {fileID: 0}
   cardSetupUI: {fileID: 0}
   gridManager: {fileID: 0}
   playerController: {fileID: 0}
-  CountTurn: 10
-  successEndingName: GameWinScene
-  monsterEndingName: 
-  noTreasureEndingName: 
+  MaxTurn: 15
+  CurrTurn: 0
+  SuccessEndingSceneName: StoryEndScene
+  GameOverEndingSceneName: GameOverScene

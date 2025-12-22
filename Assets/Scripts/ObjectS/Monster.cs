@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class Monster : MonoBehaviour
 {
     private int health = 1;
-
     private Animator _animator;
-    //public Text resultText;
     
     // Start is called before the first frame update
     void Start()
@@ -31,11 +29,9 @@ public class Monster : MonoBehaviour
         if (GameManager.Instance.playerHealth >= health)
         {
             // 플레이어 공격 성공 -> 몬스터 죽음
-            //resultText.text = "공격 성공!";
             Debug.Log("공격 성공");
-            GameManager.Instance.playerHealth -= health;
-            //StartCoroutine("ShowText");
             yield return new WaitForSeconds(1.0f);
+            
             gameObject.SetActive(false);
             
             yield return new WaitForSeconds(1.0f);
@@ -44,13 +40,13 @@ public class Monster : MonoBehaviour
         else
         {
             // 플레이어 공격 실패 -> 게임 오버
-            //resultText.text = "공격 실패 ..";
-            //StartCoroutine("ShowText");
             Debug.Log("공격 실패");
             SoundManager.Instance.PlaySFX(SFXName.게임실패);
+            
             yield return new WaitForSeconds(1.0f);
-            GameManager.Instance.GameOver(GameOverType.ByMonster);
         }
+        
+        GameManager.Instance.TakeDamage(1);
     }
 
     private void Dead()

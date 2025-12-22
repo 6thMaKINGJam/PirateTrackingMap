@@ -61,7 +61,13 @@ public class GameManager : MonoBehaviour
     private List<MoveCard> availableCards;
     
     // 턴 수 
-    public int CountTurn = 15;
+    public int MaxTurn = 15;
+    public int CurrTurn = 0;
+    
+    // 엔딩 씬 이름
+    public string SuccessEndingSceneName;
+    public string GameOverEndingSceneName;
+    
     
     private void Awake()
     {
@@ -90,7 +96,7 @@ public class GameManager : MonoBehaviour
         InitializeCards();
 
         // 게임 초기화
-        InitializeGame();
+        //InitializeGame();
     }
     
     private void OnEnable()
@@ -106,8 +112,6 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         cardSetupUI = FindObjectOfType<CardSetupUI>();
-        /*playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        objectSetter = FindObjectOfType<ObjectSetter>();*/
         gridManager = FindObjectOfType<GridManager>();
     }
     
@@ -152,7 +156,7 @@ public class GameManager : MonoBehaviour
         usedPositions.Add(treasurePosition);
         grid[treasurePosition.x, treasurePosition.y] = GridState.보물;
 
-        // 몬스터 3개 위치 랜덤 생성
+        // 몬스터 위치 랜덤 생성
         monsterPositions.Clear();
         for (int i = 0; i < monsterCount; i++)
         {
@@ -169,7 +173,7 @@ public class GameManager : MonoBehaviour
         InitializeMovementSystem();
         
         // 턴 수 초기화
-        CountTurn = 10;
+        CurrTurn = 0;
     }
     
     /// <summary>
@@ -321,24 +325,16 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 게임 오버
     /// </summary>
-    public void GameOver()
-    {
-        // 게임 오버 처리 로직
-        GameOver(GameOverType.ByTurnLimit);
-        
-        // 카드 수 초기화
-        cardSetupUI.ResetCardSelection();
-    }
-
+    /// <param name="type"></param>
     public void GameOver(GameOverType type)
     {
         LastGameOverType = type;
         Debug.Log("게임 오버: " + type);
-
-        // 카드 수 초기화
+        
+        // 선택 카드 수 초기화
         cardSetupUI.ResetCardSelection();
         
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
+        SceneManager.LoadScene(GameOverEndingSceneName);
     }
 
     /// <summary>
@@ -346,16 +342,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameSuccess()
     {
-        // 카드 수 초기화
+        // 선택 카드 수 초기화
         cardSetupUI.ResetCardSelection();
         
-        SceneManager.LoadScene("StoryEndScene");
+        SceneManager.LoadScene(SuccessEndingSceneName);
     }
 
     /// <summary>
-    /// 게임 재시작
+    /// 게임 시작
     /// </summary>
-    public void RestartGame()
+    public void StartGame()
     {
         InitializeGame();
         NewTurn();
@@ -366,7 +362,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NewTurn()
     {
-        CountTurn--;
+        CurrTurn++;
         cardSetupUI.ItemSelectUI.SetActive(true);
     }
     

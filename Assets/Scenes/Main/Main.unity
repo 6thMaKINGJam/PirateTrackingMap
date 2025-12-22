@@ -194,6 +194,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1674817961}
     m_Modifications:
+    - target: {fileID: 347358415889340659, guid: e4b8b6dd7ccc54e47ac0b562de7a7f42, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1415050862373671682, guid: e4b8b6dd7ccc54e47ac0b562de7a7f42, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -322,6 +326,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 8880468367634883209, guid: e4b8b6dd7ccc54e47ac0b562de7a7f42, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -484,6 +492,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4414506615192347147, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
+      propertyPath: MaxTurn
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414506615192347147, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
       propertyPath: CountTurn
       value: 15
       objectReference: {fileID: 0}
@@ -497,7 +509,7 @@ PrefabInstance:
       objectReference: {fileID: 377049426}
     - target: {fileID: 4414506615192347147, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
       propertyPath: monsterCount
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4414506615192347147, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
       propertyPath: objectSetter

@@ -112,8 +112,6 @@ public class PlayerController : MonoBehaviour
         }
 
         // 최종 방향 미리 계산
-        Debug.Log(_currentGridPosition);
-        Debug.Log(_facingDirection);
         Direction finalDir = card.GetFinalDirection(_facingDirection);
         Debug.Log(finalDir);
 
@@ -191,6 +189,7 @@ public class PlayerController : MonoBehaviour
                 // 게임 성공
                 GameManager.Instance.objectSetter.treasure.SetActive(true);
                 SoundManager.Instance.PlaySFX(SFXName.게임성공);
+                
                 yield return new WaitForSeconds(1.0f);
                 
                 GameManager.Instance.GameSuccess();
@@ -249,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
         
-        if (GameManager.Instance.CountTurn <= 0)
+        if (GameManager.Instance.CurrTurn >= GameManager.Instance.MaxTurn)
         {
             SoundManager.Instance.PlaySFX(SFXName.게임실패);
             GameManager.Instance.GameOver(GameOverType.ByTurnLimit);

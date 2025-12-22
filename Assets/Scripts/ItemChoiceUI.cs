@@ -45,7 +45,7 @@ public class ItemChoiceUI : MonoBehaviour
     void Start()
     {
         // 초기 화면: Yes/No만
-        ShowYesNo();
+        //ShowYesNo();
 
         yesButton.onClick.AddListener(OnYes);
         noButton.onClick.AddListener(OnNo);
