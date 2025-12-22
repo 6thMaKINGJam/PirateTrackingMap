@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083b7bcce0be94f82a2ccce5b1137e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 3
+  playerHealth: 0
   playerPosition: {x: 0, y: 16}
   treasurePosition: {x: 0, y: 0}
-  monsterCount: 3
+  monsterCount: 10
   monsterPositions: []
   objectSetter: {fileID: 0}
   cardSetupUI: {fileID: 0}

@@ -722,7 +722,7 @@ PrefabInstance:
       objectReference: {fileID: 377049426}
     - target: {fileID: 4414506615192347147, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
       propertyPath: monsterCount
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4414506615192347147, guid: ccbf881e7d7c4b64ba3de9717862d348, type: 3}
       propertyPath: objectSetter

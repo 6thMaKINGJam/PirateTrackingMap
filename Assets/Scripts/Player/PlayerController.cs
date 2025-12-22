@@ -85,23 +85,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // 애니메이션 설정
-        if (card.CardName == "바닷게")
-        {
-            _animator.SetBool("Crab", true);
-            _animator.SetBool("Running", false);
-        }
-        else if (card.CardName == "러닝맨")
-        {
-            _animator.SetBool("Running", true);
-            _animator.SetBool("Crab", false);
-        }
-        else
-        {
-            _animator.SetBool("Running", false);
-            _animator.SetBool("Crab", false);
-        }
-
         // 카드로부터 이동 명령 리스트 가져오기
         List<MoveCommand> commands = card.GetMovementSequence();
 
@@ -114,9 +97,29 @@ public class PlayerController : MonoBehaviour
         // 최종 방향 미리 계산
         Direction finalDir = card.GetFinalDirection(_facingDirection);
         Debug.Log(finalDir);
+        
+        // 애니메이션 설정
+        if (card.CardName == "바닷게")
+        {
+            if (finalDir != Direction.Right && finalDir != Direction.Left)
+            {
+                _animator.SetBool("Crab", true);
+                _animator.SetBool("Running", false);
+            }
+        }
+        else if (card.CardName == "러닝맨")
+        {
+            _animator.SetBool("Running", true);
+            _animator.SetBool("Crab", false);
+        }
+        else
+        {
+            _animator.SetBool("Running", false);
+            _animator.SetBool("Crab", false);
+        }
 
         // 이동 코루틴 시작
-        StartCoroutine(ExecuteMovementSequence(finalDir));
+        StartCoroutine(ExecuteMovementSequence(finalDir, card));
     }
 
     // ===== 내부 메서드 =====
@@ -157,7 +160,7 @@ public class PlayerController : MonoBehaviour
     /// 이동 명령 큐를 순차적으로 실행하는 코루틴
     /// </summary>
     /// <param name="finalDirection">모든 이동 후 최종 방향</param>
-    private IEnumerator ExecuteMovementSequence(Direction finalDirection)
+    private IEnumerator ExecuteMovementSequence(Direction finalDirection, MoveCard card)
     {
         _isMoving = true;
 
@@ -219,7 +222,10 @@ public class PlayerController : MonoBehaviour
                     mon.FaceMonster();
                 }
 
-                finalDirection = absoluteDir;
+                if (card.CardName != "바닷게")
+                {
+                    finalDirection = absoluteDir;
+                }
                 _movementQueue.Clear();
                 
                 break;
