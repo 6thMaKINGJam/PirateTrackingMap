@@ -88,8 +88,8 @@ public class ItemChoiceUI : MonoBehaviour
         SetItemEnabledVisual(true);
         SetItemHighlight(-1);
 
-        if (telescopeBtn != null) telescopeBtn.interactable = true;
-        if (metalBtn != null) metalBtn.interactable = true;
+        /*if (telescopeBtn != null) telescopeBtn.interactable = true;
+        if (metalBtn != null) metalBtn.interactable = true;*/
 
     }
 
@@ -114,6 +114,18 @@ public class ItemChoiceUI : MonoBehaviour
 
     void OnSelectItem(int itemIndex)
     {
+        switch (itemIndex)
+        {
+            case 0:
+                metalBtn.interactable = true;
+                telescopeBtn.interactable = false;
+                break;
+            case 1:
+                metalBtn.interactable = false;
+                telescopeBtn.interactable = true;
+                break;
+        }
+        
         selectedItem = itemIndex;
         SetItemHighlight(selectedItem);
 
@@ -125,7 +137,7 @@ public class ItemChoiceUI : MonoBehaviour
         panelMessage.SetActive(true);
         if (messageText != null)
             messageText.text = (selectedItem == 0)
-                ? texttext1 
+                ? texttext1
                 : texttext2;
     }
 
